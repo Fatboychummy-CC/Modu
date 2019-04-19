@@ -22,27 +22,32 @@ end
 
 local fileSystem = dofile("/FatFileSystem.lua")
 -- Check/get the fat file system.
+-- May be removed
 
+local inv = require("modules.Inventory")
+local chat = require("modules.Chat")
 
-
-local fe
-if isRunningViaGit then
-  fe = fileSystem.betterFind("FatErrors.lua", "", false, {"/Modu","/rom"})
-  -- ignore the /Modu folder
-else
-  fe = fileSystem.betterFind("FatErrors.lua")
-end
-if #fe == 1 then
-  fe = fe[1]
-  fe = dofile(fe)
-elseif #fe > 1 then
-  error("Multiple copies of FatErrors.lua exist!")
-else
-  error("FatErrors.lua does not exist anywhere!")
-end
-
-local bassert = fe.bassert
-local er = fe.er
-fe = nil
 
 ---------------------END: Initialization---------------------
+
+---------------------START: Data Functions---------------------
+
+-- Deep copy.  Returns a clone of the table inputted.
+local function dCopy(tbl)
+  local copy = {}
+
+  for k, v in pairs(tbl) do
+    if type(v) == "table" then
+      copy[k] = dCopy(v)
+    else
+      copy[k] = v
+    end
+  end
+
+  return copy
+end
+
+local function blblb()
+  print("blblb")
+end
+---------------------END: Data Functions---------------------
