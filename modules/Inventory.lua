@@ -1,21 +1,17 @@
 --[[FATFILE
-1
+2
 https://raw.githubusercontent.com/fatboychummy/Modu/Master/modules/Inventory.lua
 ]]
 
-local meta = {}
-local met = {}
-local ret = {}
-meta.__index = met
-ret.__module = "Inventory"
-ret._inventories = {}
-setmetatable(ret, meta)
+local funcs = {}
+local inventories = false
+
 ---------------------START: Inventory Functions---------------------
 
 -- Get inventories.  Returns a table of inventories.
 -- parameter: a table of peripheral types that should also be returned
 -- (useful for mods, as this only supports base minecraft)
-function met:getInventories(modInventories)
+function funcs.getInventories(modInventories)
   local invTypes = {"minecraft:chest", "minecraft:shulker_box"}
   local p = peripheral.getNames()
   local invs = {}
@@ -36,15 +32,15 @@ function met:getInventories(modInventories)
     end
   end
 
-  self._inventories = invs
+  inventories = invs
   return invs
 end
 
 -- Get items, from an inventory, to another inventory.
 -- damage is optional (defaults to any damage)
-function met:grabItemsFromAll(to, amount, itemName, itemDamage)
+function funcs.grabItemsFromAll(to, amount, itemName, itemDamage)
   local count = 0
-  local invs = self._inventories or {}
+  local invs = inventories or funcs.getInventories()
   to = peripheral.wrap(to)
   damage = damage or -1
 
@@ -86,4 +82,4 @@ function met:grabItemsFromAll(to, amount, itemName, itemDamage)
 end
 ---------------------END: Inventory Functions---------------------
 
-return ret
+return funcs
