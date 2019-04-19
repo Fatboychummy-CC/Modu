@@ -16,14 +16,6 @@ local owner = nil -- Your MC name
 
 ---------------------START: Initialization---------------------
 
-if not fs.exists("/FatFileSystem.lua") then
-  error("FatFileSystem.lua was not found in the root directory.", -1)
-end
-
-local fileSystem = dofile("/FatFileSystem.lua")
--- Check/get the fat file system.
--- May be removed
-
 local modules = {}
 modules.Inventory = require("modules.Inventory")
 modules.Chat = require("modules.Chat")
