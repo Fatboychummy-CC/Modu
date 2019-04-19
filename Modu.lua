@@ -5,7 +5,7 @@ https://raw.githubusercontent.com/fatboychummy/Modu/Master/Modu.lua
 
 --
 ---------------------START: CHANGEABLE---------------------
-local owner = "fatmanchummy" -- Your MC name
+local owner = nil -- Your MC name
 ---------------------END: CHANGEABLE---------------------
 
 
