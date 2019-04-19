@@ -1,11 +1,11 @@
 --[[FATFILE
-1
+3
 https://raw.githubusercontent.com/fatboychummy/Modu/Master/Modu.lua
 ]]
 
 --
 ---------------------START: CHANGEABLE---------------------
-local isRunningViaGit = true
+local owner = "fatmanchummy" -- Your MC name
 ---------------------END: CHANGEABLE---------------------
 
 
@@ -24,10 +24,18 @@ local fileSystem = dofile("/FatFileSystem.lua")
 -- Check/get the fat file system.
 -- May be removed
 
-local inv = require("modules.Inventory")
-local chat = require("modules.Chat")
+local modules = {}
+modules.Inventory = require("modules.Inventory")
+modules.Chat = require("modules.Chat")
 
 
+
+for k, v in pairs(modules) do
+  local ok, err = v.init(owner)
+  if not ok then
+    error(k .. ":" .. err, -1)
+  end
+end
 ---------------------END: Initialization---------------------
 
 ---------------------START: Data Functions---------------------

@@ -1,5 +1,5 @@
 --[[FATFILE
-2
+3
 https://raw.githubusercontent.com/fatboychummy/Modu/Master/modules/Inventory.lua
 ]]
 
@@ -79,6 +79,10 @@ function funcs.grabItemsFromAll(to, amount, itemName, itemDamage)
   end
 
   return count
+end
+
+function funcs.init()
+  return true
 end
 ---------------------END: Inventory Functions---------------------
 
