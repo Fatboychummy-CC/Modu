@@ -83,7 +83,7 @@ function funcs.grabItemsFromAll(to, amount, itemName, itemDamage)
   return count
 end
 
-function funcs.init()
+function funcs.init(data)
   return true
 end
 ---------------------END: Inventory Functions---------------------

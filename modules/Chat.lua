@@ -21,9 +21,9 @@ function funcs.listen()
   end
 end
 
-function funcs.init(owner)
+function funcs.init(data)
   -- handle the owner
-  player = owner or false
+  player = data.owner or false
   if player then
     return true
   else
