@@ -1,6 +1,8 @@
 --[[FATFILE
 3
 https://raw.githubusercontent.com/fatboychummy/Modu/Master/modules/Inventory.lua
+
+This module controls all inventory interaction
 ]]
 
 local funcs = {}
