@@ -19,16 +19,12 @@ for k, v in pairs(modules) do
 end
 
 local function initialize(mod)
-  if not mod._initialized then
-    local ok, err = mod.init(initData)
-    if not ok then
-      return false, err
-    end
-    mod._initialized = true
-    return true, true
-  else
-    return true, false
+  local ok, err = mod.init(initData)
+  if not ok then
+    return false, err
   end
+  mod._initialized = true
+  return true
 end
 
 -- Always initialize the chat module first.
@@ -36,13 +32,13 @@ initialize(modules.Chat)
 modules.Chat.tell("Chat module initialized.")
 
 for k, v in pairs(modules) do
-  local ok, err = initialize(v)
-  if not ok then
-    modules.Chat.tell("Failed to initialize module \'" .. k .. "\' due to: "
-            .. err)
-    error(k .. ":" .. err, -1)
-  end
-  if err then
+  if not v._initialized then
+    local ok, err = initialize(v)
+    if not ok then
+      modules.Chat.tell("Failed to initialize module \'" .. k .. "\' due to: "
+              .. err)
+      error(k .. ":" .. err, -1)
+    end
     modules.Chat.tell(k .. " module initialized.")
   end
 end
