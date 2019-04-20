@@ -8,12 +8,6 @@ https://raw.githubusercontent.com/fatboychummy/Modu/Master/Modu.lua
 local owner = nil -- Your MC name
 ---------------------END: CHANGEABLE---------------------
 
-
-
-
-
-
-
 ---------------------START: Initialization---------------------
 
 local modules = {}
