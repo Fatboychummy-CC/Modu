@@ -17,13 +17,14 @@ local owner = nil -- Your MC name
 ---------------------START: Initialization---------------------
 
 local modules = {}
+local initData = require("modules.InitData")
 modules.Inventory = require("modules.Inventory")
 modules.Chat = require("modules.Chat")
 
 
 
 for k, v in pairs(modules) do
-  local ok, err = v.init(owner)
+  local ok, err = v.init(initData)
   if not ok then
     error(k .. ":" .. err, -1)
   end
