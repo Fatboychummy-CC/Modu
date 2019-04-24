@@ -5,7 +5,6 @@ https://raw.githubusercontent.com/fatboychummy/Modu/Master/Modu.lua
 
 --
 ---------------------START: CHANGEABLE---------------------
-local owner = nil -- Your MC name
 ---------------------END: CHANGEABLE---------------------
 
 ---------------------START: Initialization---------------------
@@ -71,7 +70,11 @@ end
 
 ---------------------START: MAIN---------------------
 local function main()
-
+  local Chat = modules.Chat
+  local Inventory = modules.Inventory
+  while true do
+    Chat.tell(Chat.parse(Chat.listen()))
+  end
 end
 ---------------------END: MAIN---------------------
 

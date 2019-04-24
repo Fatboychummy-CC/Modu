@@ -11,6 +11,7 @@ local player = ""
 local manip = false
 
 function funcs.listen()
+  print("Listening for chat messages from \"" .. tostring(player) .. "\".")
   while true do
     local ev = {os.pullEvent(listenFor)}
     if ev[2] == player then
@@ -19,7 +20,16 @@ function funcs.listen()
   end
 end
 
+function funcs.parse(...)
+  local input = ...
+  return input
+end
+
 function funcs.tell(info)
+  if not info then
+    error("Expected string, got " .. type(info), 2)
+  end
+
   local strings = {}
   if #info > 100 then
     -- if the length of the string is too long, split it into multiple strings
@@ -46,6 +56,7 @@ function funcs.init(data)
   if not player then
     return false, "Owner not specified (edit InitData and change or add variable 'owner'!)."
   end
+
 
   -- handle the manipulator
   manip = {peripheral.find("manipulator")}
