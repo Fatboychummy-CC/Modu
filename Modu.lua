@@ -23,6 +23,7 @@ local function initialize(mod)
   if not ok then
     return false, err
   end
+  mod.init = function() return true end
   mod._initialized = true
   return true
 end
@@ -36,7 +37,7 @@ for k, v in pairs(modules) do
     local ok, err = initialize(v)
     if not ok then
       modules.Chat.tell("Failed to initialize module \'" .. k .. "\' due to: "
-              .. err)
+              .. tostring(err))
       error(k .. ":" .. err, -1)
     end
     modules.Chat.tell(k .. " module initialized.")
@@ -75,5 +76,14 @@ end
 ---------------------END: MAIN---------------------
 
 ---------------------START: Pcall---------------------
+local ok, err = pcall(main)
 
+if not ok then
+  pcall(modules.Chat.tell, "------------------------------")
+  pcall(modules.Chat.tell, "Modu has stopped unexpectedly.")
+  pcall(modules.Chat.tell, err)
+  pcall(modules.Chat.tell, "Please report this to Fatboychummy#4287 on Discord")
+  pcall(modules.Chat.tell, "------------------------------")
+  error(err, -1)
+end
 ---------------------END: Pcall---------------------
