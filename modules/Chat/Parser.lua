@@ -7,9 +7,12 @@ This module controls parsing chat data.
 
 local funcs = {}
 
-function funcs.parse(...)
-  local input = ...
-  return input
+function funcs.parse(str)
+  local dat = {}
+  for word in str:gmatch("%S+") do
+    dat[#dat+1] = word
+  end
+  return dat
 end
 
 function funcs.init(data)
