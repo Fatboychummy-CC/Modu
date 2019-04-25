@@ -10,21 +10,6 @@ local listenFor = "chat_message"
 local player = ""
 local manip = false
 
-function funcs.listen()
-  print("Listening for chat messages from \"" .. tostring(player) .. "\".")
-  while true do
-    local ev = {os.pullEvent(listenFor)}
-    if ev[2] == player then
-      return ev[3]
-    end
-  end
-end
-
-function funcs.parse(...)
-  local input = ...
-  return input
-end
-
 function funcs.tell(info)
   if not info then
     error("Expected string, got " .. type(info), 2)
