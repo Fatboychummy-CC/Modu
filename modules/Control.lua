@@ -33,7 +33,6 @@ function funcs.go(modules)
   local listener = mods.listener
 
   interactor.tell("Ready.")
-  error("oh god oh fuck")
 end
 
 function funcs.err(err)
