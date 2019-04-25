@@ -10,7 +10,6 @@ local listenFor = false
 local player = false
 
 function funcs.listen()
-  print("Listening for chat messages from \"" .. tostring(player) .. "\".")
   while true do
     local ev = {os.pullEvent(listenFor)}
     if ev[2] == player then
