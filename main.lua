@@ -10,40 +10,28 @@ https://raw.githubusercontent.com/fatboychummy/Modu/Master/Modu.lua
 ---------------------START: Initialization---------------------
 
 local modules = {}
-local initData = require("data.InitData")
-modules.Inventory = require("modules.Inventory")
-modules.Chat = require("modules.Chat")
-for k, v in pairs(modules) do
-  v._initialized = false
-end
+local controller
 
-local function initialize(mod)
-  local ok, err = mod.init(initData)
-  if not ok then
-    return false, err
-  end
-  mod.init = function() return true end
-  mod._initialized = true
-  return true
-end
+local function initializeAll()
+  local initData = require("data.InitData")
+  local nModules = require("data.ModulesRequired")
 
--- Always initialize the chat module first.
-initialize(modules.Chat)
-modules.Chat.tell("Chat module initialized.")
-
-for k, v in pairs(modules) do
-  if not v._initialized then
-    local ok, err = initialize(v)
+  local function initialize(mod)
+    local ok, err = mod.init(initData)
     if not ok then
-      modules.Chat.tell("Failed to initialize module \'" .. k .. "\' due to: "
-              .. tostring(err))
-      error(k .. ":" .. err, -1)
+      error(err)
     end
-    modules.Chat.tell(k .. " module initialized.")
   end
-end
-modules.Chat.tell("All modules initialized.")
 
+  for i = 1, #nModules do
+    modules[nModules[i]] = require(nModules[i])
+    modules[nModules[i]]._initialized = false
+    initialize(modules[nModules[i]])
+  end
+  controller = require(nModules.controller)
+
+  for k, v in pairs(modules) do print(k, v) end
+end
 ---------------------END: Initialization---------------------
 
 ---------------------START: Data Functions---------------------
@@ -70,11 +58,8 @@ end
 
 ---------------------START: MAIN---------------------
 local function main()
-  local Chat = modules.Chat
-  local Inventory = modules.Inventory
-  while true do
-    Chat.tell(Chat.parse(Chat.listen()))
-  end
+  initializeAll()
+  controller.go(modules)
 end
 ---------------------END: MAIN---------------------
 
@@ -82,11 +67,7 @@ end
 local ok, err = pcall(main)
 
 if not ok then
-  pcall(modules.Chat.tell, "------------------------------")
-  pcall(modules.Chat.tell, "Modu has stopped unexpectedly.")
-  pcall(modules.Chat.tell, err)
-  pcall(modules.Chat.tell, "Please report this to Fatboychummy#4287 on Discord")
-  pcall(modules.Chat.tell, "------------------------------")
+  pcall(controller.err,err)
   error(err, -1)
 end
 ---------------------END: Pcall---------------------
