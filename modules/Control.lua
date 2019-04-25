@@ -29,17 +29,31 @@ function funcs.go(modules)
 
   -- set this chunk's stuff
   local interactor = mods.interactor
-  local parser = mods.parser
-  local listener = mods.listener
+  local parse = mods.parser.parse
+  local listen = mods.listener.listen
 
-  interactor.tell("Ready.")
+  interactor.tell("Modu is Ready.")
+
+  while true do
+    interactor.tell(parse(listen()))
+  end
+  error("oh no")
 end
 
 function funcs.err(err)
   pcall(mods.interactor.tell, "------------------------------")
   pcall(mods.interactor.tell, "Modu has stopped unexpectedly.")
+  pcall(mods.interactor.tell, " ")
   pcall(mods.interactor.tell, err)
+  pcall(mods.interactor.tell, " ")
   pcall(mods.interactor.tell, "Please report this to Fatboychummy#4287 on Discord")
+  pcall(mods.interactor.tell, "------------------------------")
+end
+
+function funcs.terminate()
+  pcall(mods.interactor.tell, "------------------------------")
+  pcall(mods.interactor.tell, "Modu has been terminated.")
+  pcall(mods.interactor.tell, "Have a good day.")
   pcall(mods.interactor.tell, "------------------------------")
 end
 

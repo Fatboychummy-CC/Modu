@@ -67,7 +67,12 @@ end
 local ok, err = pcall(main)
 
 if not ok then
-  pcall(controller.err,err)
-  error(err, -1)
+  if err ~= "Terminated" then
+    pcall(controller.err,err)
+    error(err, -1)
+  else
+    pcall(controller.terminate)
+    error("Modu has been terminated.", -1)
+  end
 end
 ---------------------END: Pcall---------------------
