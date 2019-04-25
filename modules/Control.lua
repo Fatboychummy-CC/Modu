@@ -1,5 +1,5 @@
 --[[FATFILE
-1
+2
 https://raw.githubusercontent.com/fatboychummy/Modu/Master/modules/Control.lua
 
 This module is essentially the "main" function in the program.
