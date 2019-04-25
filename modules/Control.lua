@@ -16,26 +16,43 @@ function funcs.go(modules)
   end
 
   -- change the names of the modules to be shorter
-  for k, v in pairs(modules) do
-    modules[k:match("%.(.+)")] = modules[k]
-    print(k:match("%.(.+)"))
-    modules[k] = nil
+  local function niceModules()
+    local mod = {}
+    for k, v in pairs(modules) do
+      mod[k:match("%.(.+)")] = modules[k]
+      mod[k] = nil
+    end
+    return mod
   end
 
+  mod = niceModules()
+
   -- set the local values for interaction between funcs
-  mods.interactor = modules["Chat.PlayerInteraction"]
-  mods.parser = modules["Chat.Parser"]
-  mods.listener = modules["Chat.Listener"]
+  mods.interactor = mod["Chat.PlayerInteraction"]
+  mods.parser = mod["Chat.Parser"]
+  mods.listener = mod["Chat.Listener"]
+  mods.help = mod["Chat.Help"]
 
   -- set this chunk's stuff
   local interactor = mods.interactor
   local parse = mods.parser.parse
   local listen = mods.listener.listen
+  local help = mods.help.getHelp
 
   interactor.tell("Modu is Ready.")
 
   while true do
-    interactor.tell(parse(listen()))
+    local dat = parse(listen())
+    print(textutils.serialize(dat))
+    local command = dat[1]
+    print(command)
+    if command == "help" then
+      help(mod, dat)
+    elseif command == "clear" then
+      for i = 1, 30 do
+        interactor.tell("")
+      end
+    end
   end
   error("oh no")
 end
