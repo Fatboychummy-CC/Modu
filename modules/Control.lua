@@ -15,6 +15,7 @@ function funcs.go(modules)
 end
 
 function funcs.err(err)
+  -- none of this will work.
   pcall(modules.Chat.tell, "------------------------------")
   pcall(modules.Chat.tell, "Modu has stopped unexpectedly.")
   pcall(modules.Chat.tell, err)
