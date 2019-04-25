@@ -1,8 +1,8 @@
 --[[FATFILE
-3
-https://raw.githubusercontent.com/fatboychummy/Modu/Master/modules/Chat.lua
+1
+https://raw.githubusercontent.com/fatboychummy/Modu/Master/modules/Chat/PlayerInteraction.lua
 
-This module controls all chat interaction
+This module controls how the machine speaks to the player
 ]]
 
 local funcs = {}
