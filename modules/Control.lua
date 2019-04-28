@@ -25,7 +25,7 @@ function funcs.go(modules)
     return mod
   end
 
-  mod = niceModules()
+  local mod = niceModules()
 
   -- set the local values for interaction between funcs
   mods.interactor = mod["Chat.PlayerInteraction"]
@@ -48,15 +48,27 @@ function funcs.go(modules)
 
   interactor.tell("Modu is Ready.")
 
+  local cnt = 0
+  for k, v in pairs(modules) do
+    cnt = cnt + 1
+  end
+  interactor.tell(tostring(cnt) .. " modules have been loaded.")
+
   while true do
     local dat = parse(listen())
     print(textutils.serialize(dat))
     local command = dat[1]
     print(command)
+    local r = true
     for k, v in pairs(instants) do
       if command == v then
         mod[k].go(mod, dat)
+        r = false
       end
+    end
+    if r then
+      interactor.tell("No command: \"" .. tostring(command) .. "\".")
+      interactor.tell("Try \"commands\".")
     end
   end
   error("oh no")
