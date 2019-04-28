@@ -12,7 +12,11 @@ local data = {
   "Chat.PlayerInteraction",
   "Chat.Listener",
   "Chat.Parser",
-  "Chat.Help"
+  "Chat.Help",
+  "Chat.Clear",
+  
+  "Core.Item",
+  "Core.System"
 }
 
 for k, v in pairs(data) do
