@@ -18,6 +18,10 @@ function funcs.listen()
   end
 end
 
+function funcs.help()
+  return false
+end
+
 function funcs.init(data)
   if not data then
     return false, "No data!"

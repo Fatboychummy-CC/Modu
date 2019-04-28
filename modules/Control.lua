@@ -48,10 +48,7 @@ function funcs.go(modules)
     print(command)
     if command == "help" then
       help(mod, dat)
-    elseif command == "clear" then
-      for i = 1, 30 do
-        interactor.tell("")
-      end
+    elseif  then
     end
   end
   error("oh no")

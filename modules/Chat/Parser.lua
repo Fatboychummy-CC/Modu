@@ -15,6 +15,10 @@ function funcs.parse(str)
   return dat
 end
 
+function funcs.help()
+  return false
+end
+
 function funcs.init(data)
   return true
 end

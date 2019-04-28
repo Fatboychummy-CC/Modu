@@ -14,8 +14,12 @@ function funcs.getHelp(modules, vars)
   local function tellHelp(mod)
     interactor.tell("")
     local dat = mod.help()
-    for i = 1, #dat do
-      interactor.tell(dat[i])
+    if dat then
+      for i = 1, #dat do
+        interactor.tell(dat[i])
+      end
+    else
+      interactor.tell("This module has nothing the user can interact with.")
     end
   end
 

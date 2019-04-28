@@ -31,6 +31,10 @@ function funcs.tell(info)
   end
 end
 
+function funcs.help()
+  return false
+end
+
 function funcs.init(data)
   data = data or false
   if not data then
