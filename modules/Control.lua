@@ -37,7 +37,14 @@ function funcs.go(modules)
   local interactor = mods.interactor
   local parse = mods.parser.parse
   local listen = mods.listener.listen
-  local help = mods.help.getHelp
+  local help = mods.help
+  local instants = {}
+
+  for k, v in pairs(mod) do
+    if type(v) == "table" and type(v.getInstant) == "function" then
+      instants[k] = v.getInstant()
+    end
+  end
 
   interactor.tell("Modu is Ready.")
 
@@ -46,9 +53,10 @@ function funcs.go(modules)
     print(textutils.serialize(dat))
     local command = dat[1]
     print(command)
-    if command == "help" then
-      help(mod, dat)
-    elseif  then
+    for k, v in pairs(instants) do
+      if command == v then
+        mod[k].go(mod, dat)
+      end
     end
   end
   error("oh no")

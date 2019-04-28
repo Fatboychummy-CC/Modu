@@ -7,7 +7,7 @@ This module checks for help readings from other modules
 
 local funcs = {}
 
-function funcs.getHelp(modules, vars)
+function funcs.go(modules, vars)
   local interactor = modules["Chat.PlayerInteraction"]
   vars[2] = vars[2]:lower()
 
@@ -56,6 +56,10 @@ function funcs.help()
     "  help list:",
     "    lists all modules"
   }
+end
+
+function funcs.getInstant()
+  return "help"
 end
 
 function funcs.init(data)
