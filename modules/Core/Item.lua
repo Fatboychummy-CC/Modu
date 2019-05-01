@@ -7,20 +7,25 @@ This module is the main module
 
 local funcs = {}
 
-function funcs.go(modules, vars)
+local inv = require("ItemModules.Inventory")
 
+function funcs.go(modules, vars)
+  
 end
 
 function funcs.help()
   return {
     "Usage:",
-    "  get <item> <count> [damage]",
+    "  get <item> <count> [damage / true]",
     "",
     "  get minecraft:iron_ingot 32",
     "    transfers 32 iron ingots to the player's inventory.",
     "",
-    "Note that this uses the item IDs, rather than full names.",
-    "For example, lapis lazuli is actually \"get minecraft:dye 1 4\""
+    "  get minecraft:dye 32 4",
+    "    transfers lapis lazuli to your inventory",
+    "",
+    "  get \"lapis lazuli\" 10 true",
+    "    transfers an item via it's screen name.  Note that this is very slow."
   }
 end
 
