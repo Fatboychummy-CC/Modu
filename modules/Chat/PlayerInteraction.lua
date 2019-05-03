@@ -11,7 +11,7 @@ local player = ""
 local manip = false
 
 function funcs.tell(info)
-  if not info then
+  if type(info) ~= "string" then
     error("Expected string, got " .. type(info), 2)
   end
 
