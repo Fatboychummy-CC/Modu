@@ -29,6 +29,7 @@ local function initializeAll()
     initialize(modules[nModules[i]])
   end
   controller = require(nModules.controller)
+  controller.init(initData)
 
   for k, v in pairs(modules) do print(k, v) end
 end
