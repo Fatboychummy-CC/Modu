@@ -50,6 +50,10 @@ function funcs.getInstant()
   return "system"
 end
 
+function funcs.getInfo()
+  return "Gives the player the ability to reboot/shutdown/stop Modu."
+end
+
 function funcs.init(data)
   return true
 end

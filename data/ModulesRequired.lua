@@ -14,9 +14,10 @@ local data = {
   "Chat.Parser",
   "Chat.Help",
   "Chat.Clear",
-  
+
   "Core.Item",
-  "Core.System"
+  "Core.System",
+  "Core.Commands"
 }
 
 for k, v in pairs(data) do

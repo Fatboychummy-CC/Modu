@@ -7,10 +7,10 @@ This module is the main module
 
 local funcs = {}
 
-local inv = require("ItemModules.Inventory")
+local inv = require("modules.Core.ItemModules.Inventory")
 
 function funcs.go(modules, vars)
-  
+
 end
 
 function funcs.help()
@@ -31,6 +31,10 @@ end
 
 function funcs.getInstant()
   return "get"
+end
+
+function funcs.getInfo()
+  return "Retrieves items from a storage network and sends them to the user."
 end
 
 function funcs.init(data)

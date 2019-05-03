@@ -9,6 +9,13 @@ local funcs = {}
 
 function funcs.go(modules, vars)
   local interactor = modules["Chat.PlayerInteraction"]
+  if not vars[2] then
+    local h = funcs.help()
+    for i = 1, #h do
+      interactor.tell(h[i])
+    end
+    return
+  end
   vars[2] = vars[2]:lower()
 
   local function tellHelp(mod)

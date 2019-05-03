@@ -29,6 +29,10 @@ function funcs.getInstant()
   return "clear"
 end
 
+function funcs.getInfo()
+  return "Sends many blank messages which \"clear\" the chat."
+end
+
 function funcs.init(data)
   return true
 end
