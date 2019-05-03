@@ -9,7 +9,9 @@ local funcs = {}
 
 local mods = {}
 
-function funcs.go(modules)
+local limpmods = {}
+
+function funcs.go(modules, limp)
   -- error check
   if type(modules) ~= "table" then
     error("Bad argument (expected table, got " .. type(modules) .. ").", 2)
@@ -31,13 +33,18 @@ function funcs.go(modules)
   mods.interactor = mod["Chat.PlayerInteraction"]
   mods.parser = mod["Chat.Parser"]
   mods.listener = mod["Chat.Listener"]
-  mods.help = mod["Chat.Help"]
+
+  -- this allows limp mode to function.
+  limpmods["c.Chat.PlayerInteraction"] = mod["Chat.PlayerInteraction"]
+  limpmods["c.Chat.Parser"] = mod["Chat.Parser"]
+  limpmods["c.Chat.Listener"] = mod["Chat.Listener"]
+  limpmods["c.Core.System"] = mod["Core.System"]
+  limpmods["c.Core.Commands"] = mod["Core.Commands"]
 
   -- set this chunk's stuff
   local interactor = mods.interactor
   local parse = mods.parser.parse
   local listen = mods.listener.listen
-  local help = mods.help
   local instants = {}
 
   for k, v in pairs(mod) do
@@ -47,6 +54,12 @@ function funcs.go(modules)
   end
 
   interactor.tell("Modu is Ready.")
+  if limp then
+    interactor.tell("##############################")
+    interactor.tell("LIMP MODE IS ON!")
+    interactor.tell("SOME MODULES ARE UNAVAILABLE")
+    interactor.tell("##############################")
+  end
 
   local cnt = 0
   for k, v in pairs(modules) do
@@ -84,6 +97,7 @@ function funcs.err(err)
   pcall(mods.interactor.tell, " ")
   pcall(mods.interactor.tell, "Please report this to Fatboychummy#4287 on Discord")
   pcall(mods.interactor.tell, "------------------------------")
+  print(textutils.serialize({pcall(funcs.go, limpmods, true)}))
 end
 
 function funcs.terminate()

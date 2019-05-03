@@ -10,7 +10,7 @@ local funcs = {}
 local inv = require("modules.Core.ItemModules.Inventory")
 
 function funcs.go(modules, vars)
-
+  error("Oh crud we've done a goof")
 end
 
 function funcs.help()
