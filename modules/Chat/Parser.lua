@@ -14,6 +14,8 @@ function funcs.parse(str)
     for word in str:gmatch("%S+") do
       dat[#dat+1] = word:match(pattern .. "(.+)") or word
     end
+  else
+    return false
   end
   return dat
 end
