@@ -89,6 +89,10 @@ function funcs.go(modules, limp)
   error("oh no")
 end
 
+function funcs.warn(warn)
+  pcall(mods.interactor.tell, warn)
+end
+
 function funcs.err(err)
   pcall(mods.interactor.tell, "------------------------------")
   pcall(mods.interactor.tell, "Modu has stopped unexpectedly.")
