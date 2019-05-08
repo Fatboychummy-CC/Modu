@@ -9,19 +9,38 @@ List them in the order you want them initialized.
 
 local data = {
   controller = "Control",
-  "Chat.PlayerInteraction",
-  "Chat.Listener",
-  "Chat.Parser",
-  "Chat.Help",
-  "Chat.Clear",
+  modules = {
+    "Chat.PlayerInteraction",
+    "Chat.Listener",
+    "Chat.Parser",
+    "Chat.Help",
+    "Chat.Clear",
 
-  "Core.Item",
-  "Core.System",
-  "Core.Commands"
+    "Core.Item",
+    "Core.System",
+    "Core.Commands"
+  },
+  limpModules = {
+    "Chat.PlayerInteraction",
+    "Chat.Listener",
+    "Chat.Parser",
+    "Core.System",
+    "Core.Commands"
+  }
 }
 
+for k, v in pairs(data.modules) do
+  data.modules[k] = "modules." .. v
+end
+
+for k, v in pairs(data.limpModules) do
+  data.limpModules[k] = "modules." .. v
+end
+
 for k, v in pairs(data) do
-  data[k] = "modules." .. v
+  if type(v) == "string" then
+    data[k] = "modules." .. v
+  end
 end
 
 return data

@@ -10,11 +10,16 @@ https://raw.githubusercontent.com/fatboychummy/Modu/Master/Modu.lua
 ---------------------START: Initialization---------------------
 
 local modules = {}
+local moduleData
 local controller
 
-local function initializeAll()
+local function initialize()
+  moduleData = require("data.ModulesRequired")
+end
+
+local function initializeModules(nModules)
   local initData = require("data.InitData")
-  local nModules = require("data.ModulesRequired")
+  modules = {}
 
   local function initialize(mod)
     local ok, err = mod.init(initData)
@@ -23,12 +28,13 @@ local function initializeAll()
     end
   end
 
+
   for i = 1, #nModules do
     modules[nModules[i]] = require(nModules[i])
     modules[nModules[i]]._initialized = false
     initialize(modules[nModules[i]])
   end
-  controller = require(nModules.controller)
+  controller = require(moduleData.controller)
   controller.init(initData)
 
   for k, v in pairs(modules) do print(k, v) end
@@ -59,7 +65,8 @@ end
 
 ---------------------START: MAIN---------------------
 local function main()
-  initializeAll()
+  initialize()
+  initializeModules(moduleData.modules)
   controller.go(modules)
 end
 ---------------------END: MAIN---------------------
@@ -69,8 +76,14 @@ local ok, err = pcall(main)
 
 if not ok then
   if controller then
-    if err ~= "Terminated" then
+    if err ~= "Terminated" and err ~= "Modu halted." then
+      initializeModules(moduleData.limpModules)
       pcall(controller.err,err)
+      local ok, err = pcall(controller.go, modules, true)
+      if not ok then
+        pcall(controller.warn, "Failed to start Limp Mode. Check the console"
+                              .. " for details")
+      end
       error(err, -1)
     else
       pcall(controller.terminate)
