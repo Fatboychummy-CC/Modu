@@ -101,7 +101,6 @@ function funcs.err(err)
   pcall(mods.interactor.tell, " ")
   pcall(mods.interactor.tell, "Please report this to Fatboychummy#4287 on Discord")
   pcall(mods.interactor.tell, "------------------------------")
-  print(textutils.serialize({pcall(funcs.go, limpmods, true)}))
 end
 
 function funcs.terminate()
