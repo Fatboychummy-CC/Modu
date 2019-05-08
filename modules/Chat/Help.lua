@@ -38,6 +38,9 @@ function funcs.go(modules, vars)
                       or "  " .. k)
     end
   elseif vars[2] == "show" or vars[2] == "s" then
+
+    -- TODO: Add help pages (this means all already made modules need to change)
+
     if modules[vars[3]] then
       if modules[vars[3]].help then
         interactor.tell("Displaying help for " .. vars[3])
