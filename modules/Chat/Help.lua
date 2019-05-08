@@ -33,7 +33,9 @@ function funcs.go(modules, vars)
   if vars[2] == "list" or vars[2] == "ls" then
     interactor.tell("All modules are:")
     for k, v in pairs(modules) do
-      interactor.tell("  " .. k)
+      interactor.tell(type(v.getInstant) == "function" and "  " .. k
+                        .. " (command: \"" .. v.getInstant() .. "\")"
+                      or "  " .. k)
     end
   elseif vars[2] == "show" or vars[2] == "s" then
     if modules[vars[3]] then
