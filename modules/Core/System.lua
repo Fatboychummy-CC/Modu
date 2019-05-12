@@ -22,6 +22,8 @@ function funcs.go(modules, vars)
     os.reboot()
   elseif vars[2] == "halt" or vars[2] == "stop" then
     error("Modu halted.", -1)
+  elseif vars[2] == "error" or vars[2] == "limp" then
+    error("Initializing Limp Mode.")
   elseif vars[2] == "update" then
     error("Not yet implemented.", -1)
   else
@@ -35,6 +37,7 @@ function funcs.help()
     "  system <shutdown/poweroff>",
     "  system <restart/reboot>",
     "  system <halt/stop>",
+    "  system <error/limp",
     "  system <update>",
     "",
     "  system shutdown",
@@ -44,7 +47,10 @@ function funcs.help()
     "    Reboots the computer (Modu will be unavailable for a few moments).",
     "",
     "  system halt",
-    "    Stops Modu by forcing an error.",
+    "    Stops Modu by forcing an error (Skipping limp mode).",
+    "",
+    "  system error",
+    "    Stops Modu by forcing an error (Enters limp mode).",
     "",
     "  system update",
     "    Checks for updates for each individual file.",
