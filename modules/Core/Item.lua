@@ -16,13 +16,14 @@ end
 function funcs.help()
   return {
     "Usage:",
-    "  get <item> <count> [damage / true]",
+    "  get <item> <count> [damage]",
+    "  get <item> <count> <true>"
     "",
     "  get minecraft:iron_ingot 32",
     "    transfers 32 iron ingots to the player's inventory.",
     "",
     "  get minecraft:dye 32 4",
-    "    transfers lapis lazuli to your inventory",
+    "    transfers lapis lazuli to your inventory.",
     "",
     "  get \"lapis lazuli\" 10 true",
     "    transfers an item via it's screen name.  Note that this is very slow.",

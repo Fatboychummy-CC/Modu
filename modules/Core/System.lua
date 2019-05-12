@@ -30,7 +30,9 @@ end
 function funcs.help()
   return {
     "Usage:",
-    "  system <shutdown/poweroff/restart/reboot/halt/stop>",
+    "  system <shutdown/poweroff>",
+    "  system <restart/reboot>",
+    "  system <halt/stop>",
     "",
     "  system shutdown",
     "    Shuts down the computer (And thus, Modu stops).",

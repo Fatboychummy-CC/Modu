@@ -59,8 +59,9 @@ end
 
 function funcs.help()
   return {
-    "Usage:",
-    "  help <show/list> [module]",
+    "Usages:",
+    "  help <show> <module>",
+    "  help <list>",
     "",
     "  help show <module>:",
     "    shows information about a module",
