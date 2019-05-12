@@ -10,6 +10,30 @@ local funcs = {}
 local inv = require("modules.Item.ItemModules.Inventory")
 
 function funcs.go(modules, vars)
+  local interactor = modules["Core.Interaction.PlayerInteraction"]
+
+  local function tAssert(statement, error)
+    if not statement then
+      interactor.tell("Error:" .. error)
+      return true
+    end
+    return false
+  end
+
+  local item = vars[2]
+  local count = vars[3]
+  local dd = vars[4]
+  local searchTypeFlag = true
+
+  if type(vars[4]) == "string" and vars[4]:lower() == "true" then
+    searchTypeFlag = false
+  end
+
+  if searchTypeFlag then
+    -- if using modname:item_id + damage search type ...
+  else
+    -- if using "The item's name" search type ...
+  end
 
 end
 
