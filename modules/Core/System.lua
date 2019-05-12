@@ -22,6 +22,8 @@ function funcs.go(modules, vars)
     os.reboot()
   elseif vars[2] == "halt" or vars[2] == "stop" then
     error("Modu halted.", -1)
+  elseif vars[2] == "update" then
+    error("Not yet implemented.", -1)
   else
     interactor.tell("Unknown command: " .. vars[2])
   end
@@ -33,6 +35,7 @@ function funcs.help()
     "  system <shutdown/poweroff>",
     "  system <restart/reboot>",
     "  system <halt/stop>",
+    "  system <update>",
     "",
     "  system shutdown",
     "    Shuts down the computer (And thus, Modu stops).",
@@ -42,6 +45,10 @@ function funcs.help()
     "",
     "  system halt",
     "    Stops Modu by forcing an error.",
+    "",
+    "  system update",
+    "    Checks for updates for each individual file.",
+    "    Requires FatFileSystem at root, and FatFileUpdateHandler.",
     "",
     "Note that if Modu is not set as a startup program, running "
     .. "\"system restart\" will not run Modu again."
