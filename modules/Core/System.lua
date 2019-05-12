@@ -8,7 +8,7 @@ This module is the main module
 local funcs = {}
 
 function funcs.go(modules, vars)
-  local interactor = modules["Chat.PlayerInteraction"]
+  local interactor = modules["Core.Interaction.PlayerInteraction"]
 
   for i = 1, #vars do
     vars[i] = vars[i]:lower()

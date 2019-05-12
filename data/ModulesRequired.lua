@@ -16,16 +16,16 @@ local data = {
 
     "Item.Grab",
 
-    "Core.NoUserInput.PlayerInteraction",
-    "Core.NoUserInput.Listener",
-    "Core.NoUserInput.Parser",
+    "Core.Interaction.PlayerInteraction",
+    "Core.Interaction.Listener",
+    "Core.Interaction.Parser",
     "Core.System",
     "Core.Commands"
   },
   limpModules = {
-    "Core.NoUserInput.PlayerInteraction",
-    "Core.NoUserInput.Listener",
-    "Core.NoUserInput.Parser",
+    "Core.Interaction.PlayerInteraction",
+    "Core.Interaction.Listener",
+    "Core.Interaction.Parser",
     "Core.System",
     "Core.Commands"
   }

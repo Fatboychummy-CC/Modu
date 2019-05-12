@@ -30,14 +30,14 @@ function funcs.go(modules, limp)
   local mod = niceModules()
 
   -- set the local values for interaction between funcs
-  mods.interactor = mod["Chat.PlayerInteraction"]
-  mods.parser = mod["Chat.Parser"]
-  mods.listener = mod["Chat.Listener"]
+  mods.interactor = mod["Core.Interaction.PlayerInteraction"]
+  mods.parser = mod["Core.Interaction.Parser"]
+  mods.listener = mod["Core.Interaction.Listener"]
 
   -- this allows limp mode to function.
-  limpmods["c.Chat.PlayerInteraction"] = mod["Chat.PlayerInteraction"]
-  limpmods["c.Chat.Parser"] = mod["Chat.Parser"]
-  limpmods["c.Chat.Listener"] = mod["Chat.Listener"]
+  limpmods["c.Core.Interaction.PlayerInteraction"] = mod["Core.Interaction.PlayerInteraction"]
+  limpmods["c.Core.Interaction.Parser"] = mod["Core.Interaction.Parser"]
+  limpmods["c.Core.Interaction.Listener"] = mod["Core.Interaction.Listener"]
   limpmods["c.Core.System"] = mod["Core.System"]
   limpmods["c.Core.Commands"] = mod["Core.Commands"]
 

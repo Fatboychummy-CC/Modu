@@ -8,7 +8,7 @@ This module checks for help readings from other modules
 local funcs = {}
 
 function funcs.go(modules, vars)
-  local interactor = modules["Chat.PlayerInteraction"]
+  local interactor = modules["Core.Interaction.PlayerInteraction"]
   if not vars[2] then
     local h = funcs.help()
     for i = 1, #h do
@@ -73,6 +73,10 @@ end
 
 function funcs.getInstant()
   return "help"
+end
+
+function funcs.getInfo()
+  return "Allows the user to get information on how to use a module."
 end
 
 function funcs.init(data)

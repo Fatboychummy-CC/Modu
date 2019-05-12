@@ -8,7 +8,7 @@ This module repeats what you say
 local funcs = {}
 
 function funcs.go(modules, vars)
-  local interactor = modules["Chat.PlayerInteraction"]
+  local interactor = modules["Core.Interaction.PlayerInteraction"]
   table.remove(vars, 1)
   if #vars == 0 then
     interactor.tell("Ping")
