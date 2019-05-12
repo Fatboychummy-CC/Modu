@@ -10,20 +10,22 @@ List them in the order you want them initialized.
 local data = {
   controller = "Control",
   modules = {
-    "Chat.PlayerInteraction",
-    "Chat.Listener",
-    "Chat.Parser",
     "Chat.Help",
     "Chat.Clear",
+    "Chat.Echo",
 
-    "Core.Item",
+    "Item.Grab",
+
+    "Core.NoUserInput.PlayerInteraction",
+    "Core.NoUserInput.Listener",
+    "Core.NoUserInput.Parser",
     "Core.System",
     "Core.Commands"
   },
   limpModules = {
-    "Chat.PlayerInteraction",
-    "Chat.Listener",
-    "Chat.Parser",
+    "Core.NoUserInput.PlayerInteraction",
+    "Core.NoUserInput.Listener",
+    "Core.NoUserInput.Parser",
     "Core.System",
     "Core.Commands"
   }

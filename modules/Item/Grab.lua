@@ -7,7 +7,7 @@ This module is the main module
 
 local funcs = {}
 
-local inv = require("modules.Core.ItemModules.Inventory")
+local inv = require("modules.Item.ItemModules.Inventory")
 
 function funcs.go(modules, vars)
 
@@ -17,7 +17,7 @@ function funcs.help()
   return {
     "Usage:",
     "  get <item> <count> [damage]",
-    "  get <item> <count> <true>"
+    "  get <item> <count> <true>",
     "",
     "  get minecraft:iron_ingot 32",
     "    transfers 32 iron ingots to the player's inventory.",

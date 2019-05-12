@@ -36,7 +36,7 @@ function funcs.help()
     "Usage:",
     "  commands",
     "",
-    "  commands"
+    "  commands",
     "    Returns all available commands"
   }
 end
