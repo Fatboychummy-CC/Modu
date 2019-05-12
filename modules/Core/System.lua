@@ -26,6 +26,11 @@ function funcs.go(modules, vars)
     error("Initializing Limp Mode.")
   elseif vars[2] == "update" then
     error("Not yet implemented.", -1)
+
+    local ok, updater = pcall(require, "/FatFileSystem")
+    if not ok then
+      interactor.tell("FatFileSystem not found at the root!")
+    end
   else
     interactor.tell("Unknown command: " .. vars[2])
   end
