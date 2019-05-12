@@ -70,9 +70,8 @@ function funcs.go(modules, limp)
   while true do
     local dat = parse(listen())
     if dat then
-      print(textutils.serialize(dat))
       local command = dat[1]
-      print(command)
+      print("Executing command: " .. table.concat(dat, " "))
       local r = true
       for k, v in pairs(instants) do
         if command == v then
