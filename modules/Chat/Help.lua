@@ -16,6 +16,7 @@ function funcs.go(modules, vars)
     end
     return
   end
+
   vars[2] = vars[2]:lower()
 
   local function tellHelp(mod)
@@ -39,8 +40,6 @@ function funcs.go(modules, vars)
     end
   elseif vars[2] == "show" or vars[2] == "s" then
 
-    -- TODO: Add help pages (this means all already made modules need to change)
-
     if modules[vars[3]] then
       if modules[vars[3]].help then
         interactor.tell("Displaying help for " .. vars[3])
@@ -50,6 +49,7 @@ function funcs.go(modules, vars)
       end
     else
       interactor.tell("No module: " .. tostring(vars[3]))
+      interactor.tell("Modules are case sensitive.")
     end
   else
     interactor.tell("Unknown command: " .. vars[2])
