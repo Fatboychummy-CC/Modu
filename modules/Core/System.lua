@@ -16,23 +16,25 @@ function funcs.go(modules, vars)
     vars[i] = vars[i]:lower()
   end
 
-  if vars[2] == "shutdown" or vars[2] == "poweroff" then
-    interactor.tell("Shutting down...")
-    os.shutdown()
-  elseif vars[2] == "restart" or vars[2] == "reboot" then
-    interactor.tell("Rebooting...")
-    os.reboot()
-  elseif vars[2] == "halt" or vars[2] == "stop" then
-    error("Modu halted.", -1)
-  elseif vars[2] == "error" or vars[2] == "limp" then
-    error("Initializing Limp Mode.")
-  elseif vars[2] == "update" then
+  if vars[2] == "update" then
     error("Not yet implemented.", -1)
 
     local ok, updater = pcall(require, "/FatFileSystem")
     if not ok then
       interactor.tell("FatFileSystem not found at the root!")
     end
+  end
+
+  if vars.flags['s'] then
+    interactor.tell("Shutting down...")
+    os.shutdown()
+  elseif vars.flags['r'] then
+    interactor.tell("Rebooting...")
+    os.reboot()
+  elseif vars.flags['h'] then
+    error("Modu halted.", -1)
+  elseif vars.flags['e'] then
+    error("Initializing Limp Mode.")
   else
     interactor.tell("Unknown command: " .. vars[2])
   end
@@ -41,14 +43,13 @@ end
 function funcs.help()
   return {
     "Usage:",
-    "  system <power> -<r/s>",
+    "  system -<r/s/h/e>",
     "  system <update>",
-    "  system -<h/e>",
     ";;verbose",
-    "  system power -s",
+    "  system -s",
     "    Shuts down the computer (And thus, Modu stops).",
     "",
-    "  system power -r",
+    "  system -r",
     "    Reboots the computer (Modu will be unavailable for a few moments).",
     "",
     "  system -h",
@@ -68,7 +69,9 @@ function funcs.help()
     "  s: Shutdown.",
     "  r: Reboot.",
     "  h: Halt, skipping limp mode.",
-    "  e: Halt, entering limp mode."
+    "  e: Halt, entering limp mode.",
+    "The above flags can be used in conjunction with the \"update\" command, "
+      .. "and will be executed AFTER the update is complete."
   }
 end
 
