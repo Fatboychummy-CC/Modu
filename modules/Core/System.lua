@@ -5,6 +5,8 @@ https://raw.githubusercontent.com/fatboychummy/Modu/Master/modules/Core/System.l
 This module is the main module
 ]]
 
+-- TODO: finish conversion to flags.
+
 local funcs = {}
 
 function funcs.go(modules, vars)
@@ -39,22 +41,20 @@ end
 function funcs.help()
   return {
     "Usage:",
-    "  system <shutdown/poweroff>",
-    "  system <restart/reboot>",
-    "  system <halt/stop>",
-    "  system <error/limp",
+    "  system <power> -<r/s>",
     "  system <update>",
-    "",
-    "  system shutdown",
+    "  system -<h/e>"
+    ";;verbose",
+    "  system power -s",
     "    Shuts down the computer (And thus, Modu stops).",
     "",
-    "  system restart",
+    "  system power -r",
     "    Reboots the computer (Modu will be unavailable for a few moments).",
     "",
-    "  system halt",
+    "  system -h",
     "    Stops Modu by forcing an error (Skipping limp mode).",
     "",
-    "  system error",
+    "  system -e",
     "    Stops Modu by forcing an error (Enters limp mode).",
     "",
     "  system update",
@@ -62,7 +62,13 @@ function funcs.help()
     "    Requires FatFileSystem at root, and FatFileUpdateHandler.",
     "",
     "Note that if Modu is not set as a startup program, running "
-    .. "\"system restart\" will not run Modu again."
+    .. "\"system restart\" will not run Modu again.",
+    "",
+    "Flags:",
+    "  s: Shutdown.",
+    "  r: Reboot.",
+    "  h: Halt, skipping limp mode.",
+    "  e: Halt, entering limp mode."
   }
 end
 
