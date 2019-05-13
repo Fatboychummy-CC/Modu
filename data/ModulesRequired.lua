@@ -1,6 +1,6 @@
 --[[FATFILE
 1
-https://raw.githubusercontent.com/fatboychummy/Modu/Master/modules/ModulesRequired.lua
+https://raw.githubusercontent.com/fatboychummy/Modu/Master/data/ModulesRequired.lua
 
 This module lets Modu know which modules need to be required.
 List them in the order you want them initialized.

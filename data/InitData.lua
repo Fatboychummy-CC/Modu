@@ -1,6 +1,6 @@
 --[[FATFILE
-2
-https://raw.githubusercontent.com/fatboychummy/Modu/Master/modules/InitData.lua
+1
+https://raw.githubusercontent.com/fatboychummy/Modu/Master/data/InitData.lua
 
 This module controls what data is passed to each of the `init` functions
 ]]

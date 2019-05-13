@@ -1,6 +1,6 @@
 --[[FATFILE
 1
-https://raw.githubusercontent.com/fatboychummy/Modu/Master/modules/Core/Item.lua
+https://raw.githubusercontent.com/fatboychummy/Modu/Master/modules/Item/Grab.lua
 
 This module is the main module
 ]]
