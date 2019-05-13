@@ -9,27 +9,32 @@ local funcs = {}
 
 function funcs.go(modules, vars)
   local interactor = modules["Core.Interaction.PlayerInteraction"]
-  if not vars[2] then
-    local h = funcs.help()
-    for i = 1, #h do
-      interactor.tell(h[i])
-    end
-    return
-  end
-
-  vars[2] = vars[2]:lower()
+  local verbose = vars.flags["v"] or false
 
   local function tellHelp(mod)
     interactor.tell("")
     local dat = mod.help()
     if dat then
       for i = 1, #dat do
-        interactor.tell(dat[i])
+        if dat[i]:match(";;verbose") and not verbose then
+          return  -- if not verbose, end here.
+        elseif dat[i]:match(";;verbose") and verbose then
+          interactor.tell("") -- if verbose, tell nothing
+        else
+          interactor.tell(dat[i])
+        end
       end
     else
       interactor.tell("This module has nothing the user can interact with.")
     end
   end
+
+  if not vars[2] then
+    tellHelp(modules["Chat.Help"])
+    return
+  end
+
+  vars[2] = vars[2]:lower()
 
   if vars[2] == "list" or vars[2] == "ls" then
     interactor.tell("All modules are:")
@@ -62,12 +67,15 @@ function funcs.help()
     "Usages:",
     "  help <show> <module>",
     "  help <list>",
-    "",
+    ";;verbose",
     "  help show <module>:",
     "    shows information about a module",
     "",
     "  help list:",
-    "    lists all modules"
+    "    lists all modules",
+    "",
+    "Flags:",
+    "  v: verbose, shows more information about a module."
   }
 end
 
