@@ -62,7 +62,7 @@ function funcs.parse(str)
     local flags = dat[i]:match("^%-(.+)") -- detects "-rf" - like command flags
     if type(flags) == "string" then
       for letter in flags:gmatch(".") do
-        dat.flags[#dat.flags + 1] = letter  -- add each letter to the flags list
+        dat.flags[letter] = true  -- add each letter to the flags list
       end
       dat[i] = ";;REMOVE" -- mark the flag for removal.
                           -- if index is removed now, it messes up the for loop.
