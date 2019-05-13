@@ -19,10 +19,12 @@ function funcs.parse(str)
   end
 
   for stri in str:gmatch("\".-\"") do
-    local loc1, loc2 = str:find(stri)
-    dats[#dats + 1] = str:sub(1, loc1 - 1)
-    dats[#dats + 1] = str:sub(loc1, loc2)
-    str = str:sub(loc2 + 1)
+    local loc1, loc2 = str:find(stri)       -- str = "the big \"test\" yes"
+    dats[#dats + 1] = str:sub(1, loc1 - 1)  -- dat1 = "the big "
+    dats[#dats + 1] = str:sub(loc1, loc2)   -- dat2 = "\"test\""
+    str = str:sub(loc2 + 1)                 -- str = " yes"
+                                            -- then loop again to check for more
+                                            -- strings.
     if str:match("\"") and not str:match("\".-\"") then
       return {"echo", "Unfinished string"}
       -- yes this is double here,
@@ -30,22 +32,28 @@ function funcs.parse(str)
     end
     b = true
   end
+
   if not b then
+    -- if we found a string, then dats will be populated already.
+    -- if the flag, b, is false, that means dats is not populated.
     dats[1] = str
   end
 
   if dats[1]:match(pattern) then
     for i = 1, #dats do
-      if dats[i]:match("^\"") then
-        dat[#dat + 1] = dats[i]
+      if dats[i]:match("^\"") then  -- if the start of the string is a quote...
+        dat[#dat + 1] = dats[i]     -- clone
       else
-        for word in dats[i]:gmatch("%S+") do
+        for word in dats[i]:gmatch("%S+") do  --%S+ all non-space characters
           dat[#dat + 1] = word:match(pattern .. "(.+)") or word
+            -- if this is the first word, remove the pattern, else just keep the
+            -- word itself.
         end
       end
     end
   else
     return false
+    -- otherwise just return false for nothing.
   end
   return dat
 end
