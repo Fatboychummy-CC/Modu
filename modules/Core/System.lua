@@ -43,7 +43,7 @@ function funcs.help()
     "Usage:",
     "  system <power> -<r/s>",
     "  system <update>",
-    "  system -<h/e>"
+    "  system -<h/e>",
     ";;verbose",
     "  system power -s",
     "    Shuts down the computer (And thus, Modu stops).",
