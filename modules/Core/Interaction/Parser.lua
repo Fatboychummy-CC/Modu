@@ -9,7 +9,9 @@ local funcs = {}
 local pattern = ""
 
 function funcs.parse(str)
-  local dat = {}
+  local dat = {
+    flags = {}
+  }
   local dats = {}
 
   local b = false
@@ -55,6 +57,24 @@ function funcs.parse(str)
     return false
     -- otherwise just return false for nothing.
   end
+
+  for i = 1, #dat do
+    local flags = dat[i]:match("^%-(.+)") -- detects "-rf" - like command flags
+    if type(flags) == "string" then
+      for letter in flags:gmatch(".") do
+        dat.flags[#dat.flags + 1] = letter  -- add each letter to the flags list
+      end
+      dat[i] = ";;REMOVE" -- mark the flag for removal.
+                          -- if index is removed now, it messes up the for loop.
+    end
+  end
+
+  for i = #dat, 1, -1 do
+    if dat[i] and dat[i]:match(";;REMOVE") then
+      table.remove(dat, i) -- if it is flagged for deletion, delete it.
+    end
+  end
+
   return dat
 end
 
