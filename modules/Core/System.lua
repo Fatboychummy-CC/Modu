@@ -16,13 +16,36 @@ function funcs.go(modules, vars)
     vars[i] = vars[i]:lower()
   end
 
-  if vars[2] == "update" then
-    error("Not yet implemented.", -1)
+  local function doUpdate() -- function for return control. (ie: goto end)
+    -- error("Not yet implemented.", -1)
 
-    local ok, updater = pcall(require, "/FatFileSystem")
+    -- require the fat file system
+    local ok, ffs = pcall(require, "/FatFileSystem")
     if not ok then
       interactor.tell("FatFileSystem not found at the root!")
+      return
     end
+
+    -- find fatfileupdatehandler
+    local fls = ffs.betterFind("FatFileUpdateHandler")
+    if #fls == 0 then
+      fls = ffs.betterFind("FatFileUpdateHandler.lua")
+    end
+    -- if there are too many or not found, exit.
+    if #fls > 1 then
+      interactor.tell("Too many FatFileUpdateHandler files!")
+      return
+    elseif #fls < 1 then
+      interactor.tell("FatFileUpdateHandler not found!")
+      return
+    end
+
+    -- get all fat-files
+    local fats = ffs.getFATS()
+  end
+
+  if vars[2] == "update" then
+    doUpdate()
   end
 
   if vars.flags['s'] then
@@ -35,7 +58,7 @@ function funcs.go(modules, vars)
     error("Modu halted.", -1)
   elseif vars.flags['e'] then
     error("Initializing Limp Mode.")
-  else
+  elseif not vars[2] or vars[2] ~= "update" then
     interactor.tell("Unknown command: " .. vars[2])
   end
 end
