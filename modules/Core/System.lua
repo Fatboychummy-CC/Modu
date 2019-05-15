@@ -17,31 +17,51 @@ function funcs.go(modules, vars)
   end
 
   local function doUpdate() -- function for return control. (ie: goto end)
-    -- error("Not yet implemented.", -1)
 
-    -- require the fat file system
-    local ok, ffs = pcall(require, "/FatFileSystem")
-    if not ok then
-      interactor.tell("FatFileSystem not found at the root!")
-      return
+    local function grabFile(fileName, url)
+      -- Check if the file exists, and download it if not.
+      if not fs.exists(tostring(fileName) .. ".lua")
+         and not fs.exists(fileName) then
+
+        interactor.tell(tostring(fileName) .. " was not found.  Attempting to "
+                        .. "download from " .. tostring(url))
+
+        local dat = http.get(url)
+
+        if dat then
+          -- if the server sent a response
+          local f = io.open("/" .. tostring(fileName) .. ".lua", 'w')
+          if f then
+            -- if the file is opened
+            f:write(dat.readAll()):close()
+            dat.close()
+            interactor.tell("")
+            interactor.tell(tostring(fileName) .. " successfully downloaded.")
+          else
+            -- if the file failed to open.
+            dat.close()
+            error("Failed to open " .. tostring(fileName) .. " for writing")
+          end
+        else
+          -- if no response
+          interactor.tell("Failed to open URL " .. tostring(url))
+          interactor.tell("Cannot update.")
+          return
+        end
+      end
     end
 
-    -- find fatfileupdatehandler
-    local fls = ffs.betterFind("FatFileUpdateHandler")
-    if #fls == 0 then
-      fls = ffs.betterFind("FatFileUpdateHandler.lua")
-    end
-    -- if there are too many or not found, exit.
-    if #fls > 1 then
-      interactor.tell("Too many FatFileUpdateHandler files!")
-      return
-    elseif #fls < 1 then
-      interactor.tell("FatFileUpdateHandler not found!")
-      return
-    end
+    grabFile("FatFileUpdateHandler", "https://raw.githubusercontent.com/"
+                                      .. "fatboychummy/CCmedia/master/"
+                                      .. "helpfulthings/"
+                                      .. "FatFileUpdateHandler.lua")
+    grabFile("FatFileSystem", "https://raw.githubusercontent.com/fatboychummy/"
+                              .. "CCmedia/master/FatFileSystem.lua")
 
-    -- get all fat-files
-    local fats = ffs.getFATS()
+    -- Update.
+      -- Require the files, check for errors.
+    local ffs = require("/FatFileSystem")
+    local ffuh = require("/FatFileUpdateHandler")
   end
 
   if vars[2] == "update" then
