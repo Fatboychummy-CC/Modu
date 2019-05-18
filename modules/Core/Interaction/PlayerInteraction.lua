@@ -31,7 +31,7 @@ function funcs.tell(info)
   if #strings[1] > 100 then
     -- if the length of the string is too long, split it into multiple strings
     for i = 1, #strings[1] / 100 + 1 do
-      strings[i + 1] = strings[i]:sub(i * 100 - 99, i * 100)
+      strings[i + 1] = strings[1]:sub(i * 100 - 99, i * 100)
     end
     table.remove(strings, 1)
   end
