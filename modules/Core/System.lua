@@ -9,6 +9,8 @@ This module is the main module
 
 local funcs = {}
 
+local listen = false
+
 function funcs.go(modules, vars)
   local interactor = modules["Core.Interaction.PlayerInteraction"]
 
@@ -62,6 +64,24 @@ function funcs.go(modules, vars)
       -- Require the files, check for errors.
     local ffs = require("/FatFileSystem")
     local ffuh = require("/FatFileUpdateHandler")
+    local m = vars.flags['m']
+    local f = vars.flags['f']
+
+    interactor.tell("Reading files...")
+    local fats = ffs.getFATS()
+
+    interactor.tell("Checking for updates...")
+    for i = 1, #fats do
+      -- vars.flags[f] == true then force update without questions
+      if not m or f and not m then
+        interactor.tell("Checking file " .. tostring(fats[i].file))
+      end
+      local rq = ffuh.updateCheck(fats[i])
+      if rq then
+        interactor.tell("reeeee" .. fats[i].file)
+      end
+
+    end
   end
 
   if vars[2] == "update" then
@@ -113,8 +133,8 @@ function funcs.help()
     "  r: Reboot.",
     "  h: Halt, skipping limp mode.",
     "  e: Halt, entering limp mode.",
-    "The above flags can be used in conjunction with the \"update\" command, "
-      .. "and will be executed AFTER the update is complete."
+    "  f: Force. Used for updates to update without confirmation.",
+    "  m: Mute output (used in conjunction with f)."
   }
 end
 
@@ -127,6 +147,10 @@ function funcs.getInfo()
 end
 
 function funcs.init(data)
+  if type(data.listen) ~= "string" then
+    return false, "Missing init data value 'listen'"
+  end
+  listen = data.listen
   return true
 end
 
