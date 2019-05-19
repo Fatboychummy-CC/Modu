@@ -16,10 +16,6 @@ function funcs.go(modules, vars)
   local interactor = modules["Core.Interaction.PlayerInteraction"]
   local tell = interactor.tell
 
-  for i = 1, #vars do
-    vars[i] = vars[i]:lower()
-  end
-
     -- Require the files, check for errors.
   local ffs
   local ffuh
