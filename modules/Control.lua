@@ -11,6 +11,9 @@ local mods = {}
 
 local limpmods = {}
 
+local player = false
+local listenev = false
+
 function funcs.go(modules, limp)
   -- error check
   if type(modules) ~= "table" then
@@ -47,6 +50,20 @@ function funcs.go(modules, limp)
   local listen = mods.listener.listen
   local instants = {}
 
+  local function terminator()
+    while true do
+      print(listenev)
+      local _, p, m = os.pullEvent(listenev)
+      print("yeeeeeeeeeeeeeeeeeeeeet")
+      if p == player then
+        if string.lower(m) == "terminate" then
+          interactor.tell("Terminated.")
+          return
+        end
+      end
+    end
+  end
+
   for k, v in pairs(mod) do
     if type(v) == "table" and type(v.getInstant) == "function" then
       instants[k] = v.getInstant()
@@ -75,7 +92,10 @@ function funcs.go(modules, limp)
       local r = true
       for k, v in pairs(instants) do
         if command == v then
-          mod[k].go(mod, dat)
+          local function go()
+            mod[k].go(mod, dat)
+          end
+          parallel.waitForAny(terminator, go)
           r = false
         end
       end
@@ -110,6 +130,16 @@ function funcs.terminate()
 end
 
 function funcs.init(data)
+  if type(data.listen) ~= "string" then
+    return false, "Missing init value, 'listen'"
+  end
+  listenev  = data.listen
+
+  if type(data.owner) ~= "string" then
+    return false, "Missing init value, 'owner'"
+  end
+  player = data.owner
+
   return true
 end
 
