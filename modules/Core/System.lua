@@ -20,6 +20,12 @@ function funcs.go(modules, vars)
     vars[i] = vars[i]:lower()
   end
 
+    -- Require the files, check for errors.
+  local ffs
+  local ffuh
+  local m = vars.flags['m']
+  local f = vars.flags['f']
+
   local function doUpdate() -- function for return control. (ie: goto end)
 
     local function grabFile(fileName, url)
@@ -86,9 +92,28 @@ function funcs.go(modules, vars)
     end
 
     local function updateFiles(files)
+      local g = 0
+      local b = 0
       for i = 1, #files do
-        if vars.flags['m'] then
+        if not m then
           tell("Updating " .. tostring(files[i].file))
+        end
+        local ok, info = ffuh.updateFile(files[i])
+        if ok then
+          g = g + 1
+        else
+          b = b + 1
+        end
+        if not m then
+          tell(tostring(files[i].file) .. ": " .. tostring(info))
+        end
+        if b > 0 then
+          tell(b == 1 and "Failed to update 1 file."
+                or "Failed to update " .. tostring(b) .. " files.")
+        end
+        if g > 0 then
+          tell(g == 1 and "Updated 1 file."
+                or "Updated " .. tostring(b) .. " files.")
         end
       end
     end
@@ -101,12 +126,8 @@ function funcs.go(modules, vars)
                               .. "CCmedia/master/FatFileSystem.lua")
 
     -- Update.
-      -- Require the files, check for errors.
-    local ffs = require("/FatFileSystem")
-    local ffuh = require("/FatFileUpdateHandler")
-    local m = vars.flags['m']
-    local f = vars.flags['f']
-
+    ffs = require("/FatFileSystem")
+    ffuh = require("/FatFileUpdateHandler")
     tell("Reading files...")
     local fats = ffs.getFATS()
 
