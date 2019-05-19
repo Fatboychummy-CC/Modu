@@ -33,8 +33,10 @@ function funcs.go(modules, vars)
       if not fs.exists(tostring(fileName) .. ".lua")
          and not fs.exists(fileName) then
 
-        tell(tostring(fileName) .. " was not found.  Attempting to "
-                        .. "download from " .. tostring(url))
+        if not m then
+          tell(tostring(fileName) .. " was not found.  Attempting to "
+                          .. "download from " .. tostring(url))
+        end
 
         local dat = http.get(url)
 
@@ -45,8 +47,10 @@ function funcs.go(modules, vars)
             -- if the file is opened
             f:write(dat.readAll()):close()
             dat.close()
-            tell("")
-            tell(tostring(fileName) .. " successfully downloaded.")
+            if not m then
+              tell("")
+              tell(tostring(fileName) .. " successfully downloaded.")
+            end
           else
             -- if the file failed to open.
             dat.close()
