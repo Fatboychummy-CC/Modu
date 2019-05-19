@@ -10,9 +10,11 @@ This module is the main module
 local funcs = {}
 
 local listen = false
+local player = false
 
 function funcs.go(modules, vars)
   local interactor = modules["Core.Interaction.PlayerInteraction"]
+  local tell = interactor.tell
 
   for i = 1, #vars do
     vars[i] = vars[i]:lower()
@@ -25,7 +27,7 @@ function funcs.go(modules, vars)
       if not fs.exists(tostring(fileName) .. ".lua")
          and not fs.exists(fileName) then
 
-        interactor.tell(tostring(fileName) .. " was not found.  Attempting to "
+        tell(tostring(fileName) .. " was not found.  Attempting to "
                         .. "download from " .. tostring(url))
 
         local dat = http.get(url)
@@ -37,8 +39,8 @@ function funcs.go(modules, vars)
             -- if the file is opened
             f:write(dat.readAll()):close()
             dat.close()
-            interactor.tell("")
-            interactor.tell(tostring(fileName) .. " successfully downloaded.")
+            tell("")
+            tell(tostring(fileName) .. " successfully downloaded.")
           else
             -- if the file failed to open.
             dat.close()
@@ -46,9 +48,47 @@ function funcs.go(modules, vars)
           end
         else
           -- if no response
-          interactor.tell("Failed to open URL " .. tostring(url))
-          interactor.tell("Cannot update.")
+          tell("Failed to open URL " .. tostring(url))
+          tell("Cannot update.")
           return
+        end
+      end
+    end
+
+    local function listenFor(things, tm)
+      tm = tm or 10
+
+      for i = 1, #things do
+        tell(tostring(i) .. ": " .. tostring(things[i]))
+      end
+      tell("Say the number in chat.  After " .. tostring(tm)
+            .. " seconds the update will be cancelled.")
+
+      local tmr = os.startTimer(1)
+      while tm > 0 do
+        local ev = {os.pullEvent()}
+        local event = ev[1]
+        if event == "timer" then
+          if ev[2] == tmr then
+            tm = tm - 1
+            tmr = os.startTimer(1)
+          end
+        elseif event == listen and ev[2] == player then
+          local n = tonumber(ev[3])
+          if type(n) == "number" then
+            if n >= 1 and n <= #things and n % 1 == 0 then
+              return true, n
+            end
+          end
+        end
+      end
+      return false
+    end
+
+    local function updateFiles(files)
+      for i = 1, #files do
+        if vars.flags['m'] then
+          tell("Updating " .. tostring(files[i].file))
         end
       end
     end
@@ -67,20 +107,70 @@ function funcs.go(modules, vars)
     local m = vars.flags['m']
     local f = vars.flags['f']
 
-    interactor.tell("Reading files...")
+    tell("Reading files...")
     local fats = ffs.getFATS()
 
-    interactor.tell("Checking for updates...")
+    tell("Checking for updates...")
+    local updates = {}
+
     for i = 1, #fats do
       -- vars.flags[f] == true then force update without questions
-      if not m or f and not m then
-        interactor.tell("Checking file " .. tostring(fats[i].file))
+      if not m then
+        tell("Checking file " .. tostring(fats[i].file))
       end
-      local rq = ffuh.updateCheck(fats[i])
+      local rq, rsn = ffuh.updateCheck(fats[i])
       if rq then
-        interactor.tell("reeeee" .. fats[i].file)
+        updates[#updates + 1] = fats[i]
+      else
+        if not m then
+          tell(tostring(fats[i].file) .. ": " .. tostring(rsn))
+        end
       end
+    end
 
+    -- actually update
+    if #updates > 0 and not f then
+      tell("--------------------")
+      tell(#updates == 1 and tostring(#updates) .. " update found."
+           or tostring(#updates) .. " updates found.")
+
+      local heard, result = listenFor({
+          "Update all.",
+          "Choose which updates to install.",
+          "Exit."
+        }, 15)
+      if heard then
+        if result == 1 then -- update all
+          updateFiles(updates)
+        elseif result == 2 then -- choose updates.
+          while true do
+            local d = {}
+            for i = 1, #updates do
+              d[i] = tostring(updates[i].file)
+            end
+            d[#d + 1] = "Exit."
+            local heard, result = listenFor(d, 15)
+            if heard then
+              tell(tostring(result))
+              if result == #updates + 1 then
+                tell("Update cancelled.")
+                break
+              end
+            else
+              tell("Update cancelled.")
+              break
+            end
+          end
+        elseif result == 3 then
+          tell("Update cancelled.")
+        end
+      else
+        tell("Update cancelled.")
+      end
+    elseif f then
+      updateFiles(updates)
+    else
+      tell("No updates found.")
     end
   end
 
@@ -89,17 +179,17 @@ function funcs.go(modules, vars)
   end
 
   if vars.flags['s'] then
-    interactor.tell("Shutting down...")
+    tell("Shutting down...")
     os.shutdown()
   elseif vars.flags['r'] then
-    interactor.tell("Rebooting...")
+    tell("Rebooting...")
     os.reboot()
   elseif vars.flags['h'] then
     error("Modu halted.", -1)
   elseif vars.flags['e'] then
     error("Initializing Limp Mode.")
   elseif not vars[2] or vars[2] ~= "update" then
-    interactor.tell("Unknown command: " .. vars[2])
+    tell("Unknown command: " .. vars[2])
   end
 end
 
@@ -151,6 +241,10 @@ function funcs.init(data)
     return false, "Missing init data value 'listen'"
   end
   listen = data.listen
+  if type(data.owner) ~= "string" then
+    return false, "Missing init data value 'owner'"
+  end
+  player = data.owner
   return true
 end
 
