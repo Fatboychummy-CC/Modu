@@ -51,6 +51,9 @@ function funcs.go(modules, vars)
               tell("")
               tell(tostring(fileName) .. " successfully downloaded.")
             end
+            if m then
+              tell("A required file was not present, downloaded it.")
+            end
           else
             -- if the file failed to open.
             dat.close()
@@ -249,7 +252,7 @@ function funcs.help()
     "  h: Halt, skipping limp mode.",
     "  e: Halt, entering limp mode.",
     "  f: Force. Used for updates to update without confirmation.",
-    "  m: Mute output (used in conjunction with f)."
+    "  m: Mute output (not fully muted, just less spammy)."
   }
 end
 
