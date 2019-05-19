@@ -107,18 +107,19 @@ function funcs.go(modules, vars)
         else
           b = b + 1
         end
-        if not m then
-          tell(tostring(files[i].file) .. ": " .. tostring(info))
-        end
-        if b > 0 then
-          tell(b == 1 and "Failed to update 1 file."
-                or "Failed to update " .. tostring(b) .. " files.")
-        end
-        if g > 0 then
-          tell(g == 1 and "Updated 1 file."
-                or "Updated " .. tostring(b) .. " files.")
-        end
       end
+      if not m then
+        tell(tostring(files[i].file) .. ": " .. tostring(info))
+      end
+      if b > 0 then
+        tell(b == 1 and "Failed to update 1 file."
+              or "Failed to update " .. tostring(b) .. " files.")
+      end
+      if g > 0 then
+        tell(g == 1 and "Updated 1 file."
+              or "Updated " .. tostring(g) .. " files.")
+      end
+
     end
 
     grabFile("FatFileUpdateHandler", "https://raw.githubusercontent.com/"
@@ -167,36 +168,45 @@ function funcs.go(modules, vars)
         if result == 1 then -- update all
           updateFiles(updates)
         elseif result == 2 then -- choose updates.
-          while true do
+
+          while true do ------------------- loop
+            if #updates == 0 then
+              tell("All files updated.")
+              break
+            end
+            -- load a table with options
             local d = {}
             for i = 1, #updates do
               d[i] = tostring(updates[i].file)
             end
             d[#d + 1] = "Exit."
-            local heard, result = listenFor(d, 15)
+            local heard, result = listenFor(d, 15) -- get input from player
             if heard then
-              tell(tostring(result))
-              if result == #updates + 1 then
+              if result == #updates + 1 then -- cancel update.
                 tell("Update cancelled.")
                 break
+              else
+                updateFiles({updates[result]})
+                table.remove(updates, result)
               end
-            else
+            else -- time out, cancel update.
               tell("Update cancelled.")
               break
             end
           end
-        elseif result == 3 then
+        elseif result == 3 then -- cancel update
           tell("Update cancelled.")
         end
-      else
+      else -- time out, cancel update
         tell("Update cancelled.")
-      end
-    elseif f then
+      end ------------------------- end loop
+
+    elseif f then -- force update; update all files.
       updateFiles(updates)
     else
       tell("No updates found.")
     end
-  end
+  end -------------------------------------end doupdate
 
   if vars[2] == "update" then
     doUpdate()
