@@ -225,7 +225,7 @@ function funcs.help()
   return {
     "Usage:",
     "  system -<r/s/h/e>",
-    "  system <update>",
+    "  system <update> [-m/f]",
     ";;verbose",
     "  system -s",
     "    Shuts down the computer (And thus, Modu stops).",
