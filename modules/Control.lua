@@ -52,9 +52,7 @@ function funcs.go(modules, limp)
 
   local function terminator()
     while true do
-      print(listenev)
       local _, p, m = os.pullEvent(listenev)
-      print("yeeeeeeeeeeeeeeeeeeeeet")
       if p == player then
         if string.lower(m) == "terminate" then
           interactor.tell("Terminated.")
