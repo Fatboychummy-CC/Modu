@@ -15,6 +15,7 @@ local player = false
 local listenev = false
 
 function funcs.go(modules, limp)
+  print("The controller is now running.")
   -- error check
   if type(modules) ~= "table" then
     error("Bad argument (expected table, got " .. type(modules) .. ").", 2)
