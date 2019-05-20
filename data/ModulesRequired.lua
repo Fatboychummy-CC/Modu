@@ -15,6 +15,7 @@ local data = {
     "Chat.Echo",
 
     "Item.Grab",
+    "Item.ItemModules.Cacher",
 
     "Core.Interaction.PlayerInteraction",
     "Core.Interaction.Listener",
