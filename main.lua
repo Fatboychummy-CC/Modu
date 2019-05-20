@@ -28,10 +28,15 @@ local function initializeModules(nModules)
     end
   end
 
-  local function printInit(c, t, b)
+  local function printInit(m, c, t, b)
     local function write(d)
+      term.setCursorPos(1, 1)
+      io.write("Initializing...")
+      io.write("                                                              ")
+      term.setCursorPos(17, 1)
+      io.write(m)
       term.setCursorPos(1, 2)
-      io.write("                                      ")
+      io.write("                                                              ")
       term.setCursorPos(1, 2)
       io.write("Initialized " .. tostring(c) .. "/" .. tostring(t)
                   .. " modules" .. string.rep(".", d) .. "\n")
@@ -51,8 +56,6 @@ local function initializeModules(nModules)
 
 
   term.clear()
-  term.setCursorPos(1, 1)
-  io.write("Initializing...")
   for i = 1, #nModules do
     modules[nModules[i]] = require(nModules[i])
     modules[nModules[i]]._initialized = false
@@ -60,10 +63,10 @@ local function initializeModules(nModules)
       initialize(modules[nModules[i]])
     end
     local function b()
-      printInit(i, #nModules)
+      printInit(nModules[i], i, #nModules)
     end
     parallel.waitForAny(a, b)
-    printInit(i, #nModules, true)
+    printInit("", i, #nModules, true)
   end
   controller = require(moduleData.controller)
   controller.init(initData)
