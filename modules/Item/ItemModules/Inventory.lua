@@ -43,7 +43,9 @@ end
 function funcs.grabItemsFromAll(to, amount, itemName, itemDamage)
   local count = 0
   local invs = inventories or funcs.getInventories()
-  to = peripheral.wrap(to)
+  if type(to) ~= "table" then
+    to = peripheral.wrap(to)
+  end
   damage = damage or -1
 
   if to then
