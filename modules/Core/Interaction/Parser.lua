@@ -23,7 +23,7 @@ function funcs.parse(str)
   for stri in str:gmatch("\".-\"") do
     local loc1, loc2 = str:find(stri)       -- str = "the big \"test\" yes"
     dats[#dats + 1] = str:sub(1, loc1 - 1)  -- dat1 = "the big "
-    dats[#dats + 1] = str:sub(loc1, loc2)   -- dat2 = "\"test\""
+    dats[#dats + 1] = str:sub(loc1 + 1, loc2 - 1)   -- dat2 = "\"test\""
     str = str:sub(loc2 + 1)                 -- str = " yes"
                                             -- then loop again to check for more
                                             -- strings.
