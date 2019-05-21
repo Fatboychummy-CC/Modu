@@ -36,21 +36,33 @@ local function dp()
 end
 
 local function cacheInv(inv)
+  local new = 0
   for i = 1, inv.size() do
     local meta = inv.getItemMeta(i)
     if meta then
       local disp = meta.displayName
       local damage = meta.damage
       local name = meta.name
-      funcs.manualCacheEntry(name, damage, disp)
+      if type(cache[name]) ~= "table"
+         or type(cache[name][damage]) ~= "string" then
+        funcs.manualCacheEntry(name, damage, disp)
+        new = new + 1
+      end
       dp()
     end
   end
+  return new
 end
 
 local function cacheAllInvs(invTypes)
   local tps = {"minecraft:chest", "minecraft:shulker_box"}
+  invTypes = invTypes or {}
+  for i = 1, #invTypes do
+    tps[#tps + 1] = invTypes[i]
+  end
+
   local all = peripheral.getNames()
+  local new = 0
 
   for i = #all, 1, -1 do
 
@@ -69,9 +81,10 @@ local function cacheAllInvs(invTypes)
   end
 
   for i = 1, #all do
-    cacheInv(peripheral.wrap(all[i]))
+    new = new + cacheInv(peripheral.wrap(all[i]))
   end
 
+  return new
 end
 
 local function saveCache()
@@ -130,6 +143,58 @@ local function loadCache()
 end
 
 function funcs.go(modules, vars)
+  local interactor = modules["Core.Interaction.PlayerInteraction"]
+  local tell = interactor.tell
+
+--[[
+"  cache update",
+"  cache add <minecraft:itemName> <damage> <\"Item Name\">",
+"  cache get <minecraft:itemName> [damage]",
+"  cache get <\"Item Name\">",
+"  cache <delete> <minecraft:itemName> <damage>",
+"  cache <delete> <\"Item Name\">",
+]]
+  local command = vars[2]
+
+  if vars.flags['c'] then
+    tell("Clearing the Cache")
+    cache = {}
+    saveCache()
+  end
+
+  if command == "update" then
+    tell("Updating Cache...")
+    local new = cacheAllInvs()
+    tell(new == 1 and "Done, created 1 new entry."
+        or "Done, created " .. tostring(new) .. " new entries.")
+  elseif command == "add" then
+    local iName = vars[3]
+    local damage = tonumber(vars[4])
+    local name = vars[5]
+    if type(damage) ~= "number" then
+      tell("Expected number for argument 4 (damage)")
+      return
+    end
+    if type(cache[iName]) ~= "table" then
+      cache[iName] = {}
+    end
+    cache[iName][damage] = name
+  elseif command == "get" then
+    local iName = vars[3]
+    local damage = vars[4]
+    if type(damage) ~= "number" or type(damage) ~= "nil" then
+      tell("Expected number or nothing for argument 4 (damage/nil)")
+      return
+    end
+    if cache[iName] then
+
+    end
+
+  elseif command == "delete" then
+
+  else
+    tell("Unknown command: " .. tostring(command))
+  end
 
 end
 
@@ -143,6 +208,10 @@ function funcs.manualCacheEntry(name, damage, itemName)
   saveCache()
 end
 
+function funcs.scan(extras)
+  cacheAllInvs(extras)
+end
+
 function funcs.getCache()
   return cache
 end
@@ -150,12 +219,12 @@ end
 function funcs.help()
   return {
     "Usages:",
-    "  cache update",
+    "  cache update [-c]",
     "  cache add <minecraft:itemName> <damage> <\"Item Name\">",
     "  cache get <minecraft:itemName> [damage]",
     "  cache get <\"Item Name\">",
-    "  cache <delete/remove/rm/del> <minecraft:itemName> <damage>",
-    "  cache <delete/remove/rm/del> <\"Item Name\">",
+    "  cache delete <minecraft:itemName> <damage>",
+    "  cache delete <\"Item Name\">",
     ";;verbose",
     "  cache update:",
     "    Forces an update to the cache (reads through all connected "
@@ -168,7 +237,10 @@ function funcs.help()
     "    Displays the current name set to a cache registration.",
     "",
     "  cache get <\"Item Name\">:",
-    "    Displays the current cache registration given to a name."
+    "    Displays the current cache registration given to a name.",
+    "",
+    "Flags:",
+    "  c: Clears the cache."
   }
 end
 
