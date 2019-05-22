@@ -38,13 +38,6 @@ function funcs.go(modules, limp)
   mods.parser = mod["Core.Interaction.Parser"]
   mods.listener = mod["Core.Interaction.Listener"]
 
-  -- this allows limp mode to function.
-  limpmods["c.Core.Interaction.PlayerInteraction"] = mod["Core.Interaction.PlayerInteraction"]
-  limpmods["c.Core.Interaction.Parser"] = mod["Core.Interaction.Parser"]
-  limpmods["c.Core.Interaction.Listener"] = mod["Core.Interaction.Listener"]
-  limpmods["c.Core.System"] = mod["Core.System"]
-  limpmods["c.Core.Commands"] = mod["Core.Commands"]
-
   -- set this chunk's stuff
   local interactor = mods.interactor
   local parse = mods.parser.parse
