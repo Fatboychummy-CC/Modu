@@ -6,6 +6,7 @@ This module controls all item caching
 ]]
 
 local cache = {}
+local reverseCache = {}
 local cacheLocation = false
 local funcs = {}
 --[[cache structure:
@@ -87,7 +88,17 @@ local function cacheAllInvs(invTypes)
   return new
 end
 
+local function calculateReverseCache()
+  reverseCache = {}
+  for k, v in pairs(cache) do
+    for k2, v2 in pairs(v) do
+      reverseCache[v2] = {d = k2, i = k}
+    end
+  end
+end
+
 local function saveCache()
+  calculateReverseCache()
   local cacheFile = {}
   local index = 1
   for k, v in pairs(cache) do
@@ -145,16 +156,20 @@ end
 function funcs.go(modules, vars)
   local interactor = modules["Core.Interaction.PlayerInteraction"]
   local tell = interactor.tell
-
---[[
-"  cache update",
-"  cache add <minecraft:itemName> <damage> <\"Item Name\">",
-"  cache get <minecraft:itemName> [damage]",
-"  cache get <\"Item Name\">",
-"  cache <delete> <minecraft:itemName> <damage>",
-"  cache <delete> <\"Item Name\">",
-]]
   local command = vars[2]
+
+  local function typeAssert(tps, got, arg)
+    got = type(got)
+    for i = 1, #tps do
+      if tps[i] == got then
+        return false
+      end
+    end
+    local types = table.concat(tps, " or ")
+    tell("Expected " .. tostring(types) .. ", got " .. got .. ". (arg "
+          .. tostring(arg) .. ")")
+    return true
+  end
 
   if vars.flags['c'] then
     tell("Clearing the Cache")
@@ -163,37 +178,105 @@ function funcs.go(modules, vars)
   end
 
   if command == "update" then
+
     tell("Updating Cache...")
     local new = cacheAllInvs()
     tell(new == 1 and "Done, created 1 new entry."
         or "Done, created " .. tostring(new) .. " new entries.")
+
   elseif command == "add" then
+
     local iName = vars[3]
     local damage = tonumber(vars[4])
     local name = vars[5]
-    if type(damage) ~= "number" then
-      tell("Expected number for argument 4 (damage)")
+    if typeAssert({"string"}, iName, 1) then
       return
     end
-    if type(cache[iName]) ~= "table" then
-      cache[iName] = {}
-    end
-    cache[iName][damage] = name
-  elseif command == "get" then
-    local iName = vars[3]
-    local damage = vars[4]
-    if type(damage) ~= "number" or type(damage) ~= "nil" then
-      tell("Expected number or nothing for argument 4 (damage/nil)")
+    if typeAssert({"number"}, damage, 2) then
       return
     end
-    if cache[iName] then
+    if typeAssert({"string"}, name, 3) then
+      return
+    end
+    funcs.manualCacheEntry(iName, damage, name)
 
+  elseif command == "get" then
+
+    local iName = vars[3]
+    local damage = tonumber(vars[4])
+    if typeAssert({"string"}, iName, 1) then
+      return
+    end
+    if typeAssert({"number", "nil"}, damage, 2) then
+      return
+    end
+
+    if cache[iName] then
+      if damage then
+        local name = cache[iName][damage]
+        if name then
+          tell("That is registered to " .. tostring(name) .. ".")
+        else
+          tell("This item is not registered to a name.")
+        end
+      else
+
+        local names = {}
+        for k, v in pairs(cache[iName]) do
+          print(type(k))
+          names[#names + 1] = tostring(k) .. " " .. tostring(v)
+        end
+        table.sort(names, function(a, b)
+          if tonumber(a:match("%d+")) < tonumber(b:match("%d+")) then
+            return true
+          else
+            return false
+          end
+        end)
+
+        tell("This item has the following damage values/names:")
+        for i = 1, #names do
+          tell(names[i]:match("%d+").. ": " .. names[i]:match(" .+"))
+        end
+      end
+    else
+      local b = reverseCache[iName]
+      if b then
+        tell("This item is registered to:")
+        tell(tostring(b.i) .. " with damage " .. tostring(b.d))
+      end
     end
 
   elseif command == "delete" then
 
+    local iName = vars[3]
+    local damage = tonumber(vars[4])
+    if typeAssert({"string"}, iName, 1) then
+      return
+    end
+    if typeAssert({"number", "nil"}, damage, 2) then
+      return
+    end
+
+    local a = cache[iName]
+    local b = reverseCache[iName]
+    if a then
+      if damage then
+        cache[iName][damage] = nil
+      else
+        cache[iName] = nil
+      end
+    elseif b then
+      cache[b.i][b.d] = nil
+      saveCache()
+    else
+      tell("No cache hits.")
+    end
+
   else
+
     tell("Unknown command: " .. tostring(command))
+
   end
 
 end
@@ -201,6 +284,7 @@ end
 function funcs.manualCacheEntry(name, damage, itemName)
   if type(cache[name]) == "table" then
     cache[name][damage] = itemName
+    print(name, damage, itemName)
   else
     cache[name] = {}
     cache[name][damage] = itemName
@@ -214,6 +298,10 @@ end
 
 function funcs.getCache()
   return cache
+end
+
+function funcs.getReverseCache()
+  return reverseCache
 end
 
 function funcs.help()
@@ -262,6 +350,8 @@ function funcs.init(data)
   if not loadCache() then
     cacheAllInvs()
     saveCache()
+  else
+    calculateReverseCache()
   end
 
   return true
