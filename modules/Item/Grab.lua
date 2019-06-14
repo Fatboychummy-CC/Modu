@@ -2,7 +2,7 @@
 1
 https://raw.githubusercontent.com/fatboychummy/Modu/Master/modules/Item/Grab.lua
 
-This module is the main module
+This module is the main purpose of Modu: to send items to the user.
 ]]
 
 local funcs = {}

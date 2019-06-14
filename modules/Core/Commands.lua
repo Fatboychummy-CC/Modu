@@ -2,7 +2,7 @@
 1
 https://raw.githubusercontent.com/fatboychummy/Modu/Master/modules/Core/Commands.lua
 
-This module is the main module
+This module returns what commands are usable.
 ]]
 
 local funcs = {}

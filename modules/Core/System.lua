@@ -2,7 +2,7 @@
 1
 https://raw.githubusercontent.com/fatboychummy/Modu/Master/modules/Core/System.lua
 
-This module is the main module
+This module controls direct access to the system (mostly just rebooting/etc)
 ]]
 
 -- TODO: finish conversion to flags.
