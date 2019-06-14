@@ -92,9 +92,19 @@ local function calculateReverseCache()
   reverseCache = {}
   for k, v in pairs(cache) do
     for k2, v2 in pairs(v) do
-      reverseCache[v2] = {d = k2, i = k}
+      reverseCache[string.lower(v2)] = {d = k2, i = k}
     end
   end
+  --[[
+
+  {
+    name = {
+      d = damage,
+      i = mod:itemname
+    }
+  }
+
+  ]]
 end
 
 local function saveCache()
@@ -223,7 +233,6 @@ function funcs.go(modules, vars)
 
         local names = {}
         for k, v in pairs(cache[iName]) do
-          print(type(k))
           names[#names + 1] = tostring(k) .. " " .. tostring(v)
         end
         table.sort(names, function(a, b)
@@ -284,7 +293,6 @@ end
 function funcs.manualCacheEntry(name, damage, itemName)
   if type(cache[name]) == "table" then
     cache[name][damage] = itemName
-    print(name, damage, itemName)
   else
     cache[name] = {}
     cache[name][damage] = itemName
@@ -293,7 +301,7 @@ function funcs.manualCacheEntry(name, damage, itemName)
 end
 
 function funcs.scan(extras)
-  cacheAllInvs(extras)
+  return cacheAllInvs(extras)
 end
 
 function funcs.getCache()
