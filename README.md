@@ -1,2 +1,2 @@
 # Modu
-Remake of "inventoryMods", but going to actually... hopefully... be good. (and actually get remade)
+Remake of [InventoryMods](https://github.com/fatboychummy/InventoryMods), but going to actually... hopefully... be good. (and actually get remade)
