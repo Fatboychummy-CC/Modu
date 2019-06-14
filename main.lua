@@ -1,11 +1,10 @@
 --[[FATFILE
-4
+1
 https://raw.githubusercontent.com/fatboychummy/Modu/Master/Modu.lua
+
+This is main.lua, I'd assume you know that this is the program itself.
 ]]
 
---
----------------------START: CHANGEABLE---------------------
----------------------END: CHANGEABLE---------------------
 
 ---------------------START: Initialization---------------------
 
