@@ -18,6 +18,7 @@ end
 
 local function initializeModules(nModules)
   local initData = require("data.InitData")
+  local ars = {}
   modules = {}
 
   local function initialize(mod)
@@ -25,6 +26,7 @@ local function initializeModules(nModules)
     if not ok then
       error(err)
     end
+    return ok, err
   end
 
   local function printInit(m, c, t, b)
@@ -58,8 +60,12 @@ local function initializeModules(nModules)
   for i = 1, #nModules do
     modules[nModules[i]] = require(nModules[i])
     modules[nModules[i]]._initialized = false
+
     local function a()
-      initialize(modules[nModules[i]])
+      local ok, comb = initialize(modules[nModules[i]])
+      if type(comb) == "function" then
+        ars[#ars + 1] = comb
+      end
     end
     local function b()
       printInit(nModules[i], i, #nModules)
@@ -69,6 +75,8 @@ local function initializeModules(nModules)
   end
   controller = require(moduleData.controller)
   controller.init(initData)
+
+  return ars
 end
 ---------------------END: Initialization---------------------
 
@@ -96,9 +104,13 @@ end
 
 ---------------------START: MAIN---------------------
 local function main()
+  local function go()
+    controller.go(modules)
+  end
+
   initialize()
-  initializeModules(moduleData.modules)
-  controller.go(modules)
+  local ars = initializeModules(moduleData.modules)
+  parallel.waitForAll(go, table.unpack(ars))
 end
 ---------------------END: MAIN---------------------
 
