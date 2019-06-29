@@ -1,5 +1,5 @@
 --[[FATFILE
-1
+2
 https://raw.githubusercontent.com/fatboychummy/Modu/Master/modules/Chat/Help.lua
 
 This module checks for help readings from other modules
