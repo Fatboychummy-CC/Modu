@@ -7,9 +7,24 @@ This module creates virtual consoles to be via chat.
 
 local funcs = {}
 
+local owner = false
+local listen = false
+
 function funcs.go(modules, vars)
   local interactor = modules["Core.Interaction.PlayerInteraction"]
   local tell = interactor.tell
+
+  local com = vars[2]
+
+  if com == "start" then
+
+  elseif com == "edit" then
+
+  elseif com == "list" then
+
+  elseif com == "stop" then
+
+  end
 end
 
 function funcs.help()
@@ -48,6 +63,8 @@ function funcs.getInfo()
 end
 
 function funcs.init(data)
+  owner = data.owner or error("No initData field 'owner'.", 0)
+  listen = data.listen or error("No initData field 'listen'.", 0)
   return true
 end
 
