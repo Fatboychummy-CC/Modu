@@ -20,27 +20,35 @@ function funcs.parse(str)
     return {"echo", "Unfinished string"}
   end
 
-  for stri in str:gmatch("\".-\"") do
-    local loc1, loc2 = str:find(stri, 1, true)   -- str = "the big \"test\" yes"
-    dats[#dats + 1] = str:sub(1, loc1 - 1)  -- dat1 = "the big "
-    dats[#dats + 1] = str:sub(loc1, loc2)   -- dat2 = "\"test\""
-    str = str:sub(loc2 + 1)                 -- str = " yes"
-                                            -- then loop again to check for more
-                                            -- strings.
-    if str:match("\"") and not str:match("\".-\"") then
-      return {"echo", "Unfinished string"}
-      -- yes this is double here,
-      -- it needs to be checked before the loop and during.
+  local function combine(strg)
+    local dats = {}
+    local f = false
+    for stri in strg:gmatch("\".-\"") do
+      print(stri)
+      local loc1, loc2 = strg:find(stri, 1, true)   -- str = "the big \"test\" yes"
+      dats[#dats + 1] = strg:sub(1, loc1 - 1)  -- dat1 = "the big "
+      dats[#dats + 1] = strg:sub(loc1, loc2)   -- dat2 = "\"test\""
+      strg = strg:sub(loc2 + 1)                 -- str = " yes"
+                                              -- then loop again to check for more
+                                              -- strings.
+      if strg:match("\"") and not strg:match("\".-\"") then
+        return false, {"echo", "Unfinished string"}
+        -- yes this is double here,
+        -- it needs to be checked before the loop and during.
+      end
+      f = true
     end
-    b = true
+    if not f then
+      dats[1] = strg
+    else
+      dats[#dats + 1] = strg
+    end
+    return true, dats
   end
 
+  b, dats = combine(str)
   if not b then
-    -- if we found a string, then dats will be populated already.
-    -- if the flag, b, is false, that means dats is not populated.
-    dats[1] = str
-  else
-    dats[#dats + 1] = str
+    return dats
   end
 
   if dats[1]:match(pattern) then
@@ -63,9 +71,13 @@ function funcs.parse(str)
   for i = 1, #dat do
     local flags = dat[i]:match("^%-(.+)") -- detects "-rf" - like command flags
     if type(flags) == "string" then
+      local ls = {}
       for letter in flags:gmatch(".") do
+        ls[#ls + 1] = letter
         dat.flags[letter] = true  -- add each letter to the flags list
       end
+      dat.flags[ls[#ls]] = dat[i + 1] or true
+
       dat[i] = ";;REMOVE" -- mark the flag for removal.
                           -- if index is removed now, it messes up the for loop.
     end
