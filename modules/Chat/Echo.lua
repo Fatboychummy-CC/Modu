@@ -34,7 +34,7 @@ function funcs.help()
   return {
     "Usage:",
     "  echo [message]",
-    "",
+    ";;verbose",
     "  echo some_message",
     "    tells the user, \"some_message\".",
     "",
