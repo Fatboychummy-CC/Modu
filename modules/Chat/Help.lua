@@ -45,10 +45,20 @@ function funcs.go(modules, vars)
     end
   elseif vars[2] == "show" or vars[2] == "s" then
 
-    if modules[vars[3]] then
-      if modules[vars[3]].help then
+    local modh = false
+    for k, v in pairs(modules) do
+      if v.getInstant and v.getInstant() == vars[3] then
+        modh = v
+      end
+    end
+    if not modh then
+      modh = modules[vars[3]]
+    end
+
+    if modh then
+      if modh.help then
         interactor.tell("Displaying help for " .. vars[3])
-        tellHelp(modules[vars[3]])
+        tellHelp(modh)
       else
         interactor.tell("No module help function: " .. tostring(vars[3]))
       end
