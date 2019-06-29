@@ -24,10 +24,10 @@ function funcs.help()
     "    Changes options of a virtual console.",
     "",
     "  console list",
-    "    Lists the ids [and names, if applicable] of all running consoles."
+    "    Lists the ids [and names, if applicable] of all running consoles.",
     "",
     "  console stop <id>",
-    "    Shuts down a virtual console "
+    "    Shuts down a virtual console ",
         .. "(Similar to running 'exit' in the shell).",
     "",
     "Flags:",
