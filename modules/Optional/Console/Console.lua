@@ -17,7 +17,23 @@ function funcs.go(modules, vars)
   local com = vars[2]
 
   if com == "start" then
+    os.queueEvent("ConsoleStart",
+      {
+        n = vars.flags['n'],
+        o = vars.flags['o'],
+        p = vars.flags['p']
+      })
 
+    local timeOut = os.startTimer(2)
+    while true do
+      local ev = {os.pullEvent()}
+      if ev[1] == "ConsoleNotification" and ev[2] == "Started" then
+        tell("Console successfully started, with ID " .. tostring(ev[3]))
+        break
+      elseif ev[1] == "timer" and ev[2] == timeOut then
+        tell("Console failed to start after two seconds.")
+      end
+    end
   elseif com == "edit" then
 
   elseif com == "list" then
@@ -42,7 +58,7 @@ function funcs.help()
     "    Lists the ids [and names, if applicable] of all running consoles.",
     "",
     "  console stop <id>",
-    "    Shuts down a virtual console ",
+    "    Shuts down a virtual console "
         .. "(Similar to running 'exit' in the shell).",
     "",
     "Flags:",
@@ -65,7 +81,9 @@ end
 function funcs.init(data)
   owner = data.owner or error("No initData field 'owner'.", 0)
   listen = data.listen or error("No initData field 'listen'.", 0)
-  return true
+  local a = require("modules.Optional.Console.Runner")
+  a.setup(data)
+  return true, a.go
 end
 
 return funcs
