@@ -223,7 +223,7 @@ function funcs.go(modules, vars)
   elseif vars.flags['e'] then
     error("Initializing Limp Mode.")
   elseif not vars[2] or vars[2] ~= "update" then
-    tell("Unknown command: " .. vars[2])
+    tell("Unknown command: " .. tostring(vars[2]))
   end
 end
 
