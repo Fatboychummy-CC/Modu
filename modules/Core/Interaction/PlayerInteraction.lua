@@ -103,6 +103,9 @@ function funcs.init(data)
 
   -- handle the manipulator modules
   local modules = manip.listModules()
+  if data.listen == "chat_message" then
+    manip.capture(data.pattern)
+  end
 
   for i = 1, #modules do
     if modules[i] == "plethora:chat"
