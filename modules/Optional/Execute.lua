@@ -15,8 +15,6 @@ function funcs.go(modules, vars)
     vars[vars.strs[i] - 1] = "\"" .. vars[vars.strs[i] - 1] .. "\""
   end
 
-  interactor.tell(tostring(table.concat(vars, " ")))
-
   local ok, err = pcall(load, table.concat(vars, " "))
 
   if not ok then
@@ -25,17 +23,16 @@ function funcs.go(modules, vars)
     return
   end
 
-  interactor.tell(type(err))
-  interactor.tell("Executing.")
+  interactor.tell("Executing...")
   local ok2, err2 = pcall(err)
   if not ok2 then
     interactor.tell("Runtime error in chunk:")
     interactor.tell(tostring(err2))
     return
   end
-  interactor.tell("-----RETURN:")
-  interactor.tell(tostring(err2))
-  interactor.tell("Type: " .. type(err2))
+  interactor.tell("RETURN:")
+  interactor.tell("value -> " .. tostring(err2))
+  interactor.tell("type  -> " .. type(err2))
 end
 
 function funcs.help()
