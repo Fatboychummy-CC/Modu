@@ -8,12 +8,19 @@ This module controls the "listening"
 local funcs = {}
 local listenFor = false
 local player = false
+local pattern = false
 
 function funcs.listen()
   while true do
     local ev = {os.pullEvent(listenFor)}
-    if ev[2] == player then
-      return ev[3]
+    if listenFor == "chat_capture" then
+      if ev[4] == player and ev[3] == pattern then
+        return ev[2]
+      end
+    elseif listenFor == "chat_message" then
+      if ev[2] == player then
+        return ev[3]
+      end
     end
   end
 end
@@ -26,6 +33,10 @@ function funcs.init(data)
   if not data then
     return false, "No data!"
   end
+
+  pattern = data.pattern or false
+  if not pattern then
+    return false, "Pattern not specified (edit InitData and change or add variable 'pattern'!)"
 
   listenFor = data.listen or false
   if not listenFor then
