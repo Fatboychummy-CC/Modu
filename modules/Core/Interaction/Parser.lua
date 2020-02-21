@@ -10,7 +10,8 @@ local pattern = ""
 
 function funcs.parse(str)
   local dat = {
-    flags = {}
+    flags = {},
+    strs = {}
   }
   local dats = {}
 
@@ -55,6 +56,7 @@ function funcs.parse(str)
     for i = 1, #dats do
       if dats[i]:match("^\"") then  -- if the start of the string is a quote...
         dat[#dat + 1] = dats[i]:match("\"(.+)\"")  -- clone, but without quotes
+        dat.strs[#dat.strs + 1] = #dat
       else
         for word in dats[i]:gmatch("%S+") do  --%S+ all non-space characters
           dat[#dat + 1] = word:match(pattern .. "(.+)") or word
