@@ -11,10 +11,8 @@ function funcs.go(modules, vars)
   local interactor = modules["Core.Interaction.PlayerInteraction"]
 
   table.remove(vars, 1)
-  for i = 1, #vars do
-    if vars[i]:find(" ") then
-      vars[i] = "\"" .. vars[i] .. "\""
-    end
+  for i = 1, #vars.strs do
+    vars[vars.strs[i]] = "\"" .. vars[vars.strs[i]] .. "\""
   end
 
   interactor.tell(tostring(table.concat(vars, " ")))
