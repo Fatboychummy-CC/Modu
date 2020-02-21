@@ -12,7 +12,7 @@ function funcs.go(modules, vars)
 
   table.remove(vars, 1)
   for i = 1, #vars.strs do
-    vars[vars.strs[i]] = "\"" .. vars[vars.strs[i]] .. "\""
+    vars[vars.strs[i] - 1] = "\"" .. vars[vars.strs[i] - 1] .. "\""
   end
 
   interactor.tell(tostring(table.concat(vars, " ")))
