@@ -42,6 +42,38 @@ function funcs.tell(info)
   end
 end
 
+function funcs.say(info)
+  if type(info) ~= "string" then
+    error("Expected string, got " .. type(info), 2)
+  end
+
+  local strings = {}
+
+  -- populate strings table, by splitting by control characters.
+  local flg = true
+  for str in info:gmatch("%C+") do
+    flg = false
+    strings[#strings + 1] = str
+  end
+  -- if no control characters, set strings[1] to the string inputted
+  if flg then
+    strings[1] = info
+  end
+
+  if #strings[1] > 100 then
+    -- if the length of the string is too long, split it into multiple strings
+    for i = 1, #strings[1] / 100 + 1 do
+      strings[i + 1] = strings[1]:sub(i * 100 - 99, i * 100)
+    end
+    table.remove(strings, 1)
+  end
+
+  -- tell the player each string
+  for i = 1, #strings do
+    manip.say(strings[i])
+  end
+end
+
 function funcs.help()
   return false
 end
