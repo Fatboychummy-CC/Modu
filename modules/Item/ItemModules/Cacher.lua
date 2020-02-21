@@ -1,6 +1,6 @@
 --[[FATFILE
 1
-https://raw.githubusercontent.com/fatboychummy/Modu/Master/modules/Item/ItemModules/Cacher.lua
+https://raw.githubusercontent.com/fatboychummy/Modu/master/modules/Item/ItemModules/Cacher.lua
 
 This module controls all item caching
 ]]

@@ -1,6 +1,6 @@
 --[[FATFILE
 1
-https://raw.githubusercontent.com/fatboychummy/Modu/Master/modules/Item/Grab.lua
+https://raw.githubusercontent.com/fatboychummy/Modu/master/modules/Item/Grab.lua
 
 This module is the main purpose of Modu: to send items to the user.
 ]]

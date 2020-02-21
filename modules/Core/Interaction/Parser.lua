@@ -1,6 +1,6 @@
 --[[FATFILE
 1
-https://raw.githubusercontent.com/fatboychummy/Modu/Master/modules/Core/Interaction/Parser.lua
+https://raw.githubusercontent.com/fatboychummy/Modu/master/modules/Core/Interaction/Parser.lua
 
 This module controls parsing chat data.
 ]]

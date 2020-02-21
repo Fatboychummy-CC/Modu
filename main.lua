@@ -1,6 +1,6 @@
 --[[FATFILE
 1
-https://raw.githubusercontent.com/fatboychummy/Modu/Master/Modu.lua
+https://raw.githubusercontent.com/fatboychummy/Modu/master/Modu.lua
 
 This is main.lua, I'd assume you know that this is the program itself.
 ]]

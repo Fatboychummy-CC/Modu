@@ -1,6 +1,6 @@
 --[[FATFILE
 1
-https://raw.githubusercontent.com/fatboychummy/Modu/Master/modules/Core/Interaction/Listener.lua
+https://raw.githubusercontent.com/fatboychummy/Modu/master/modules/Core/Interaction/Listener.lua
 
 This module controls the "listening"
 ]]

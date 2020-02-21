@@ -1,6 +1,6 @@
 --[[FATFILE
 2
-https://raw.githubusercontent.com/fatboychummy/Modu/Master/modules/Chat/Help.lua
+https://raw.githubusercontent.com/fatboychummy/Modu/master/modules/Chat/Help.lua
 
 This module checks for help readings from other modules
 ]]

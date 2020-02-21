@@ -1,6 +1,6 @@
 --[[FATFILE
 1
-https://raw.githubusercontent.com/fatboychummy/Modu/Master/modules/Chat/Echo.lua
+https://raw.githubusercontent.com/fatboychummy/Modu/master/modules/Chat/Echo.lua
 
 This module repeats what you say
 ]]
