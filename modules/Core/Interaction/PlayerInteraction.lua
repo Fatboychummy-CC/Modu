@@ -1,6 +1,6 @@
 --[[FATFILE
 1
-https://raw.githubusercontent.com/fatboychummy/Modu/Master/modules/Core/Interaction/PlayerInteraction.lua
+https://raw.githubusercontent.com/fatboychummy/Modu/master/modules/Core/Interaction/PlayerInteraction.lua
 
 This module controls how the machine speaks to the player
 ]]
