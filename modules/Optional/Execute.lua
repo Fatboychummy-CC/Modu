@@ -12,6 +12,8 @@ function funcs.go(modules, vars)
 
   table.remove(vars, 1)
 
+  interactor.tell(tostring(table.concat(vars, " ")))
+
   local ok, err = pcall(load, table.concat(vars, " "))
 
   if not ok then
@@ -20,6 +22,7 @@ function funcs.go(modules, vars)
     return
   end
 
+  interactor.tell(type(err))
   interactor.tell("Executing.")
   local ok2, err2 = pcall(err)
   if not ok2 then
@@ -28,7 +31,8 @@ function funcs.go(modules, vars)
     return
   end
   interactor.tell("-----RETURN:")
-  interactor.tell(err2)
+  interactor.tell(tostring(err2))
+  interactor.tell("Type: " .. type(err2))
 end
 
 function funcs.help()
