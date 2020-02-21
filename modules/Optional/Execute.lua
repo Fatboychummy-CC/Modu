@@ -18,7 +18,7 @@ function funcs.go(modules, vars)
 
   if not ok then
     interactor.tell("Failed to load inputs due to:")
-    interactor.tell(err)
+    interactor.tell(tostring(err))
     return
   end
 
@@ -27,7 +27,7 @@ function funcs.go(modules, vars)
   local ok2, err2 = pcall(err)
   if not ok2 then
     interactor.tell("Runtime error in chunk:")
-    interactor.tell(err2)
+    interactor.tell(tostring(err2))
     return
   end
   interactor.tell("-----RETURN:")
