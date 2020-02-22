@@ -37,7 +37,8 @@ function funcs.init(data)
   pattern = data.pattern or false
   if not pattern then
     return false, "Pattern not specified (edit InitData and change or add variable 'pattern'!)"
-
+  end
+  
   listenFor = data.listen or false
   if not listenFor then
     return false, "Listener not specified (edit InitData and change or add variable 'listen'!)"
