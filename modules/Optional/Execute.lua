@@ -24,15 +24,28 @@ function funcs.go(modules, vars)
   end
 
   interactor.tell("Executing...")
-  local ok2, err2 = pcall(err, interactor.say)
-  if not ok2 then
+  local out = {pcall(err, interactor.say)}
+  if not out[1] then
     interactor.tell("Runtime error in chunk:")
-    interactor.tell(tostring(err2))
+    interactor.tell(tostring(out[2]))
     return
   end
+  local function checkFuncs(x)
+    for k, v in pairs(x) do
+      if type(v) == "table" then
+        checkFuncs(v)
+      end
+      if type(v) == "function" then
+        x[k] = "FUNCTION"
+      end
+    end
+  end
+  table.remove(out, 1)
+
+  checkFuncs(out)
+
   interactor.tell("RETURN:")
-  interactor.tell("value -> " .. tostring(err2))
-  interactor.tell("type  -> " .. type(err2))
+  interactor.tell("value -> " .. textutils.serialize(out))
 end
 
 function funcs.help()
