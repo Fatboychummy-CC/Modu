@@ -9,6 +9,7 @@ local funcs = {}
 local listenFor = "chat_message"
 local player = ""
 local manip = false
+local pattern
 
 function funcs.tell(info)
   if type(info) ~= "string" then
@@ -76,6 +77,14 @@ function funcs.say(info)
   end
 end
 
+function funcs.cap()
+  manip.capture(pattern)
+end
+
+function funcs.uncap()
+  manip.uncapture(pattern)
+end
+
 function funcs.help()
   return false
 end
@@ -106,7 +115,8 @@ function funcs.init(data)
   -- handle the manipulator modules
   local modules = manip.listModules()
   if data.listen == "chat_capture" then
-    manip.capture(data.pattern)
+    pattern = data.pattern
+    funcs.cap()
   end
 
   for i = 1, #modules do

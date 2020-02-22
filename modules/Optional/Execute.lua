@@ -27,7 +27,7 @@ function funcs.go(modules, vars)
     vars[vars.strs[i] - 1] = "\"" .. vars[vars.strs[i] - 1] .. "\""
   end
 
-  local ok, err = pcall(load, "local args = {...} local say = args[1]  " .. table.concat(vars, " "))
+  local ok, err = pcall(load, "local say, uncap, cap = ...  " .. table.concat(vars, " "))
 
   if not ok then
     interactor.tell("Failed to load inputs due to:")
@@ -36,7 +36,7 @@ function funcs.go(modules, vars)
   end
 
   interactor.tell("Executing...")
-  local out = {pcall(err, interactor.say)}
+  local out = {pcall(err, interactor.say, interactor.uncap, interactor.cap}
   if not out[1] then
     interactor.tell("Runtime error in chunk:")
     interactor.tell(tostring(out[2]))
