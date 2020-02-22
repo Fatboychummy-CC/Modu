@@ -7,6 +7,18 @@ This module executes lua code directly.
 
 local funcs = {}
 
+function dCopy(x)
+  local ret = {}
+  for k, v in pairs(x) do
+    if type(v) == "table" then
+      ret[k] = dCopy(v)
+    else
+      ret[k] = v
+    end
+  end
+  return ret
+end
+
 function funcs.go(modules, vars)
   local interactor = modules["Core.Interaction.PlayerInteraction"]
 
@@ -41,11 +53,11 @@ function funcs.go(modules, vars)
     end
   end
   table.remove(out, 1)
-
-  checkFuncs(out)
+  local out2 = dCopy(out)
+  checkFuncs(out2)
 
   interactor.tell("RETURN:")
-  interactor.tell("value -> " .. textutils.serialize(out))
+  interactor.tell("value -> " .. textutils.serialize(out2))
 end
 
 function funcs.help()
