@@ -58,9 +58,10 @@ function funcs.go(modules, limp)
       elseif listenev == "chat_capture" then
         local _, m, c, p = table.unpack(ev)
         if p == player then
-          if string.lower(m) == ";terminate" then
+          if string.lower(m):find("terminate") then
             interactor.tell("Terminated.")
           end
+        end
       end
     end
   end
