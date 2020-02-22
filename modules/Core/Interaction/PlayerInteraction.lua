@@ -39,6 +39,7 @@ function funcs.tell(info)
   -- tell the player each string
   for i = 1, #strings do
     manip.tell(strings[i])
+    sleep(0)
   end
 end
 
@@ -71,6 +72,7 @@ function funcs.say(info)
   -- tell the player each string
   for i = 1, #strings do
     manip.say(strings[i])
+    sleep(0)
   end
 end
 
