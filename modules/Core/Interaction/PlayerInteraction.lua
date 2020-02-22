@@ -103,7 +103,7 @@ function funcs.init(data)
 
   -- handle the manipulator modules
   local modules = manip.listModules()
-  if data.listen == "chat_message" then
+  if data.listen == "chat_capture" then
     manip.capture(data.pattern)
   end
 
