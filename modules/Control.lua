@@ -46,12 +46,21 @@ function funcs.go(modules, limp)
 
   local function terminator()
     while true do
-      local _, p, m = os.pullEvent(listenev)
-      if p == player then
-        if string.lower(m) == "terminate" then
-          interactor.tell("Terminated.")
-          return
+      local ev = {os.pullEvent(listenev)}
+      if listenev == "chat_message" then
+        local _, p, m = table.unpack(ev)
+        if p == player then
+          if string.lower(m) == "terminate" then
+            interactor.tell("Terminated.")
+            return
+          end
         end
+      elseif listenev == "chat_capture" then
+        local _, m, c, p = table.unpack(ev)
+        if p == player then
+          if string.lower(m) == ";terminate" then
+            interactor.tell("Terminated.")
+          end
       end
     end
   end
