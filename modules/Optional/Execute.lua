@@ -19,6 +19,12 @@ function dCopy(x)
   return ret
 end
 
+local repeating = false
+
+local function trept()
+  repeating = not repeating
+end
+
 function funcs.go(modules, vars)
   local interactor = modules["Core.Interaction.PlayerInteraction"]
 
@@ -27,7 +33,7 @@ function funcs.go(modules, vars)
     vars[vars.strs[i] - 1] = "\"" .. vars[vars.strs[i] - 1] .. "\""
   end
 
-  local ok, err = pcall(load, "local say, uncap, cap = ...  " .. table.concat(vars, " "))
+  local ok, err = pcall(load, "local say, trept = ...  " .. table.concat(vars, " "))
 
   if not ok then
     interactor.tell("Failed to load inputs due to:")
@@ -36,7 +42,10 @@ function funcs.go(modules, vars)
   end
 
   interactor.tell("Executing...")
-  local out = {pcall(err, interactor.say, interactor.uncap, interactor.cap)}
+  if repeating then
+    interactor.say(table.concat(vars, " "))
+  end
+  local out = {pcall(err, interactor.say, trept)}
   if not out[1] then
     interactor.tell("Runtime error in chunk:")
     interactor.tell(tostring(out[2]))
