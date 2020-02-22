@@ -60,6 +60,7 @@ function funcs.go(modules, limp)
         if p == player then
           if string.lower(m):find("terminate") then
             interactor.tell("Terminated.")
+            return
           end
         end
       end
