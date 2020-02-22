@@ -36,7 +36,7 @@ function funcs.go(modules, vars)
   end
 
   interactor.tell("Executing...")
-  local out = {pcall(err, interactor.say, interactor.uncap, interactor.cap}
+  local out = {pcall(err, interactor.say, interactor.uncap, interactor.cap)}
   if not out[1] then
     interactor.tell("Runtime error in chunk:")
     interactor.tell(tostring(out[2]))
