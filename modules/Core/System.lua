@@ -82,11 +82,24 @@ function funcs.go(modules, vars)
             tm = tm - 1
             tmr = os.startTimer(1)
           end
-        elseif event == listen and ev[2] == player then
-          local n = tonumber(string.match(ev[3], "%d+"))
-          if type(n) == "number" then
-            if n >= 1 and n <= #things and n % 1 == 0 then
-              return true, n
+        elseif event == listen then
+          if event == "chat_message" then
+            if ev[2] == player then
+              local n = tonumber(string.match(ev[3], "%d+"))
+              if type(n) == "number" then
+                if n >= 1 and n <= #things and n % 1 == 0 then
+                  return true, n
+                end
+              end
+            end
+          elseif event == "chat_capture" then
+            if ev[4] == player then
+              local n = tonumber(string.match(ev[2], "%d+"))
+              if type(n) == "number" then
+                if n >= 1 and n <= #things and n % 1 == 0 then
+                  return true, n
+                end
+              end
             end
           end
         end
