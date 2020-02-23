@@ -1,5 +1,5 @@
 --[[FATFILE
-1
+2
 https://raw.githubusercontent.com/fatboychummy/Modu/master/modules/Item/ItemModules/Inventory.lua
 
 This module controls all inventory interaction
@@ -14,7 +14,7 @@ local inventories = false
 -- parameter: a table of peripheral types that should also be returned
 -- (useful for mods, as this only supports base minecraft)
 function funcs.getInventories(modInventories)
-  local invTypes = {"minecraft:chest", "minecraft:shulker_box"}
+  local invTypes = {"chest", "shulker"}
   local p = peripheral.getNames()
   local invs = {}
 
@@ -28,7 +28,7 @@ function funcs.getInventories(modInventories)
   -- Find the inventories.
   for i = 1, #p do
     for o = 1, #invTypes do
-      if peripheral.getType(p[i]) == invTypes[o] then
+      if p[i]:find(invTypes[o]) then
         invs[#invs + 1] = p[i]
       end
     end
