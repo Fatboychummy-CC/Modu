@@ -70,7 +70,7 @@ function funcs.go(modules, vars)
       for i = 1, #things do
         tell(tostring(i) .. ": " .. tostring(things[i]))
       end
-      tell("Say the number in chat.  After " .. tostring(tm)
+      tell("Say the number in chat (including the pattern).  After " .. tostring(tm)
             .. " seconds the update will be cancelled.")
 
       local tmr = os.startTimer(1)
@@ -83,7 +83,7 @@ function funcs.go(modules, vars)
             tmr = os.startTimer(1)
           end
         elseif event == listen and ev[2] == player then
-          local n = tonumber(ev[3])
+          local n = tonumber(string.match(ev[3], "%d+"))
           if type(n) == "number" then
             if n >= 1 and n <= #things and n % 1 == 0 then
               return true, n
