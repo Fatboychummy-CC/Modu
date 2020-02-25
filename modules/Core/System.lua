@@ -12,7 +12,7 @@ local funcs = {}
 local listen = false
 local player = false
 
-local function doUpdate(force, mute) -- function for return control. (ie: goto end)
+local function doUpdate(modules, force, mute) -- function for return control. (ie: goto end)
   -- TODO: Update
   -- TODO: Get user input from new functions in PlayerInteraction
 
@@ -46,6 +46,8 @@ local function doUpdate(force, mute) -- function for return control. (ie: goto e
       end
     end
   end]]
+
+  modules["Core.Interaction.PlayerInteraction"].tell("Not implemented yet.")
 end -------------------------------------end doupdate
 
 function funcs.go(modules, vars)
@@ -59,7 +61,7 @@ function funcs.go(modules, vars)
   local f = vars.flags['f']
 
   if vars[2] == "update" then
-    doUpdate(vars.flags['f'], vars.flags['m'])
+    doUpdate(modules, vars.flags['f'], vars.flags['m'])
   end
 
   if vars.flags['s'] then
