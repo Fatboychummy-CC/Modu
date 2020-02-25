@@ -6,6 +6,7 @@ This module controls how the machine speaks to the player
 ]]
 
 local funcs = {}
+local listener = require("modules.Core.Interaction.Listener")
 local listenFor = "chat_message"
 local player = ""
 local manip = false
@@ -69,6 +70,11 @@ end
 
 function funcs.uncap()
   manip.uncapture(pattern)
+end
+
+function funcs.getUserInputPattern(pat)
+  local pat = pat or ".+"
+  return listener.listen():match(string.format("%s(%s)", pattern or "", pat))
 end
 
 function funcs.help()
