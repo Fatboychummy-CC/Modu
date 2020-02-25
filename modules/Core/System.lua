@@ -13,6 +13,9 @@ local listen = false
 local player = false
 
 local function doUpdate(force, mute) -- function for return control. (ie: goto end)
+  -- TODO: Update
+  -- TODO: Get user input from new functions in PlayerInteraction
+
   --[[grabFile("FatFileUpdateHandler", "https://raw.githubusercontent.com/"
                                     .. "fatboychummy/CCmedia/master/"
                                     .. "helpfulthings/"
