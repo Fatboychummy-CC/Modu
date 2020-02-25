@@ -9,6 +9,9 @@ This module controls direct access to the system (mostly just rebooting/etc)
 
 local funcs = {}
 
+local interactor = require("modules.Core.Interaction.PlayerInteraction")
+local tell = interactor.tell
+
 local listen = false
 local player = false
 
@@ -47,13 +50,13 @@ local function doUpdate(modules, force, mute) -- function for return control. (i
     end
   end]]
 
-  modules["Core.Interaction.PlayerInteraction"].tell("Not implemented yet.")
+  tell("Not implemented yet.")
+  tell("However...")
+  tell("No Pattern: " .. interactor.getUserInputPattern())
+  tell("%d+: " .. interactor.getUserInputPattern("%d+"))
 end -------------------------------------end doupdate
 
 function funcs.go(modules, vars)
-  local interactor = modules["Core.Interaction.PlayerInteraction"]
-  local tell = interactor.tell
-
     -- Require the files, check for errors.
   local ffs
   local ffuh
