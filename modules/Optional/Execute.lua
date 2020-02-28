@@ -66,7 +66,9 @@ function funcs.go(modules, vars)
   checkFuncs(out2)
 
   interactor.tell("RETURN:")
-  interactor.tell("value -> " .. textutils.serialize(out2))
+  for k, v in pairs(out2) do
+    interactor.tell(string.format("out[%s]: %s", tostring(k), tostring(v)))
+  end
 end
 
 function funcs.help()
