@@ -14,7 +14,7 @@ local inventories = false
 -- parameter: a table of peripheral types that should also be returned
 -- (useful for mods, as this only supports base minecraft)
 function funcs.getInventories(modInventories)
-  local invTypes = {"chest", "shulker"}
+  local invTypes = {"chest", "shulker", "cache", "strongbox"}
   local p = peripheral.getNames()
   local invs = {}
 

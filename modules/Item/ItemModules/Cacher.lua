@@ -56,7 +56,7 @@ local function cacheInv(inv)
 end
 
 local function cacheAllInvs(invTypes)
-  local tps = {"minecraft:chest", "minecraft:shulker_box"}
+  local tps = {"chest", "shulker", "cache", "strongbox"}
   invTypes = invTypes or {}
   for i = 1, #invTypes do
     tps[#tps + 1] = invTypes[i]
@@ -69,7 +69,7 @@ local function cacheAllInvs(invTypes)
 
     local f = true
     for o = 1, #tps do
-      if peripheral.getType(all[i]) == tps[o] then
+      if peripheral.getType(all[i]):find(tps[o]) then
         f = false
         break
       end
