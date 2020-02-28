@@ -13,3 +13,4 @@ modules/Core/Interaction/Listener.lua,https://raw.githubusercontent.com/fatboych
 modules/Chat/Help.lua,https://raw.githubusercontent.com/fatboychummy/Modu/master/modules/Chat/Help.lua
 modules/Chat/Echo.lua,https://raw.githubusercontent.com/fatboychummy/Modu/master/modules/Chat/Echo.lua
 modules/Chat/Clear.lua,https://raw.githubusercontent.com/fatboychummy/Modu/master/modules/Chat/Clear.lua
+modules/Util.lua,https://raw.githubusercontent.com/fatboychummy/ccutils/master/util.lua
