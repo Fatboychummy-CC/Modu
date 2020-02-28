@@ -19,7 +19,7 @@ local function doUpdate(modules, force, mute) -- function for return control. (i
   -- TODO: Update
   -- TODO: Get user input from new functions in PlayerInteraction
 
-  --[[grabFile("FatFileUpdateHandler", "https://raw.githubusercontent.com/"
+  grabFile("FatFileUpdateHandler", "https://raw.githubusercontent.com/"
                                     .. "fatboychummy/CCmedia/master/"
                                     .. "helpfulthings/"
                                     .. "FatFileUpdateHandler.lua")
@@ -48,7 +48,7 @@ local function doUpdate(modules, force, mute) -- function for return control. (i
         tell(tostring(fats[i].file) .. ": " .. tostring(rsn))
       end
     end
-  end]]
+  end
 
   tell("Not implemented yet.")
   tell("However...")
