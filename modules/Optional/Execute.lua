@@ -43,7 +43,7 @@ function funcs.go(modules, vars)
 
   interactor.tell("Running: `" .. table.concat(vars, " ") .. "'")
   if repeating then
-    interactor.say("Running: `" .. table.concat(vars, " ") .. "'")
+    interactor.say("Running: `" .. table.concat(vars, " ") .. "`")
   end
   local out = {pcall(err, interactor.say, trept)}
   if not out[1] then
