@@ -41,7 +41,7 @@ function funcs.go(modules, vars)
     return
   end
 
-  interactor.tell("Executing...")
+  interactor.tell("Running: `" .. table.concat(vars, " ") .. "'")
   if repeating then
     interactor.say("Running: `" .. table.concat(vars, " ") .. "'")
   end
