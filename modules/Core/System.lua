@@ -10,6 +10,7 @@ This module controls direct access to the system (mostly just rebooting/etc)
 local funcs = {}
 
 local interactor = require("modules.Core.Interaction.PlayerInteraction")
+local util = require("modules.Util")
 local tell = interactor.tell
 
 local listen = false
@@ -18,12 +19,34 @@ local player = false
 local function doUpdate(modules, force, mute) -- function for return control. (ie: goto end)
   -- TODO: Update
   -- TODO: Get user input from new functions in PlayerInteraction
+  local fh = io.open("files", 'r')
+  if fh then
+    local dat = fh:read("*a")
+    fh:close()
+    fh = nil
 
+    local lines = {n = 0}
+    for line in io.lines("files") do
+      lines.n = lines.n + 1
+      lines[n] = line
+    end
 
-  tell("Not implemented yet.")
-  tell("However...")
-  tell("No Pattern: " .. interactor.getUserInputPattern())
-  tell("%d+: " .. interactor.getUserInputPattern("%d+"))
+    local lines2 = {n = 0}
+    local function is(x)
+      lines2.n = lines2.n + 1
+      lines2[n] = x
+    end
+    for i = 1, lines.n do
+      local out = util.split(lines[i], ",")
+      is(out[1])
+      is(out[2])
+    end
+    for k, v in pairs(lines2) do
+      tell(tostring(k) .. " " .. tostring(v))
+    end
+  else
+    error("Updater: Failed to open file-list for reading.", 0)
+  end
 end -------------------------------------end doupdate
 
 function funcs.go(modules, vars)
