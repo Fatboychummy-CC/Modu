@@ -19,36 +19,6 @@ local function doUpdate(modules, force, mute) -- function for return control. (i
   -- TODO: Update
   -- TODO: Get user input from new functions in PlayerInteraction
 
-  grabFile("FatFileUpdateHandler", "https://raw.githubusercontent.com/"
-                                    .. "fatboychummy/CCmedia/master/"
-                                    .. "helpfulthings/"
-                                    .. "FatFileUpdateHandler.lua")
-  grabFile("FatFileSystem", "https://raw.githubusercontent.com/fatboychummy/"
-                            .. "CCmedia/master/FatFileSystem.lua")
-
-  -- Update.
-  ffs = require("/FatFileSystem")
-  ffuh = require("/FatFileUpdateHandler")
-  tell("Reading files...")
-  local fats = ffs.getFATS()
-
-  tell("Checking for updates...")
-  local updates = {}
-
-  for i = 1, #fats do
-    -- vars.flags[f] == true then force update without questions
-    if not m then
-      tell("Checking file " .. tostring(fats[i].file))
-    end
-    local rq, rsn = ffuh.updateCheck(fats[i])
-    if rq then
-      updates[#updates + 1] = fats[i]
-    else
-      if not m then
-        tell(tostring(fats[i].file) .. ": " .. tostring(rsn))
-      end
-    end
-  end
 
   tell("Not implemented yet.")
   tell("However...")
