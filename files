@@ -1,0 +1,15 @@
+main.lua,https://raw.githubusercontent.com/fatboychummy/Modu/master/main.lua
+modules/Control.lua,https://raw.githubusercontent.com/fatboychummy/Modu/master/modules/Control.lua
+modules/Optional/Execute.lua,https://raw.githubusercontent.com/fatboychummy/Modu/master/modules/Optional/Execute.lua
+modules/Item/Grab.lua,https://raw.githubusercontent.com/fatboychummy/Modu/master/modules/Item/Grab.lua
+modules/Item/ItemModules/Manipulators.lua,https://raw.githubusercontent.com/fatboychummy/Modu/master/modules/Item/ItemModules/Manipulators.lua
+modules/Item/ItemModules/Inventory.lua,https://raw.githubusercontent.com/fatboychummy/Modu/master/modules/Item/ItemModules/Inventory.lua
+modules/Item/ItemModules/Cacher.lua,https://raw.githubusercontent.com/fatboychummy/Modu/master/modules/Item/ItemModules/Cacher.lua
+modules/Core/System.lua,https://raw.githubusercontent.com/fatboychummy/Modu/master/modules/Core/System.lua
+modules/Core/Commands.lua,https://raw.githubusercontent.com/fatboychummy/Modu/master/modules/Core/Commands.lua
+modules/Core/Interaction/PlayerInteraction.lua,https://raw.githubusercontent.com/fatboychummy/Modu/master/modules/Core/Interaction/PlayerInteraction.lua
+modules/Core/Interaction/Parser.lua,https://raw.githubusercontent.com/fatboychummy/Modu/master/modules/Core/Interaction/Parser.lua
+modules/Core/Interaction/Listener.lua,https://raw.githubusercontent.com/fatboychummy/Modu/master/modules/Core/Interaction/Listener.lua
+modules/Chat/Help.lua,https://raw.githubusercontent.com/fatboychummy/Modu/master/modules/Chat/Help.lua
+modules/Chat/Echo.lua,https://raw.githubusercontent.com/fatboychummy/Modu/master/modules/Chat/Echo.lua
+modules/Chat/Clear.lua,https://raw.githubusercontent.com/fatboychummy/Modu/master/modules/Chat/Clear.lua
