@@ -1,6 +1,6 @@
 --[[FATFILE
 1
-https://raw.githubusercontent.com/fatboychummy/Modu/master/modules/Core/System.lua
+https://raw.githubusercontent.com/Fatboychummy-CC/Modu/master/modules/Core/System.lua
 
 This module controls direct access to the system (mostly just rebooting/etc)
 ]]
@@ -139,7 +139,7 @@ function funcs.go(modules, vars)
                                       .. "fatboychummy/CCmedia/master/"
                                       .. "helpfulthings/"
                                       .. "FatFileUpdateHandler.lua")
-    grabFile("FatFileSystem", "https://raw.githubusercontent.com/fatboychummy/"
+    grabFile("FatFileSystem", "https://raw.githubusercontent.com/Fatboychummy-CC/"
                               .. "CCmedia/master/FatFileSystem.lua")
 
     -- Update.

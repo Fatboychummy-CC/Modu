@@ -1,6 +1,6 @@
 --[[FATFILE
 1
-https://raw.githubusercontent.com/fatboychummy/Modu/master/modules/Item/ItemModules/Manipulators.lua
+https://raw.githubusercontent.com/Fatboychummy-CC/Modu/master/modules/Item/ItemModules/Manipulators.lua
 
 This module controls manipulator stuff
 ]]

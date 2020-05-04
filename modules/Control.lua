@@ -1,6 +1,6 @@
 --[[FATFILE
 1
-https://raw.githubusercontent.com/fatboychummy/Modu/master/modules/Control.lua
+https://raw.githubusercontent.com/Fatboychummy-CC/Modu/master/modules/Control.lua
 
 This module is essentially the "main" function in the program.
 ]]

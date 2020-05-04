@@ -1,6 +1,6 @@
 --[[FATFILE
 1
-https://raw.githubusercontent.com/fatboychummy/Modu/master/modules/Chat/Echo.lua
+https://raw.githubusercontent.com/Fatboychummy-CC/Modu/master/modules/Chat/Echo.lua
 
 This module creates virtual consoles to be via chat.
 ]]

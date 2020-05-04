@@ -1,6 +1,6 @@
 --[[FATFILE
 2
-https://raw.githubusercontent.com/fatboychummy/Modu/master/modules/Item/ItemModules/Inventory.lua
+https://raw.githubusercontent.com/Fatboychummy-CC/Modu/master/modules/Item/ItemModules/Inventory.lua
 
 This module controls all inventory interaction
 ]]

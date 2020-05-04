@@ -1,6 +1,6 @@
 --[[FATFILE
 1
-https://raw.githubusercontent.com/fatboychummy/Modu/master/modules/Chat/Clear.lua
+https://raw.githubusercontent.com/Fatboychummy-CC/Modu/master/modules/Chat/Clear.lua
 
 This module is the main module
 ]]

@@ -1,6 +1,6 @@
 --[[FATFILE
 1
-https://raw.githubusercontent.com/fatboychummy/Modu/master/modules/Core/Interaction/Listener.lua
+https://raw.githubusercontent.com/Fatboychummy-CC/Modu/master/modules/Core/Interaction/Listener.lua
 
 This module controls the "listening"
 ]]
@@ -38,7 +38,7 @@ function funcs.init(data)
   if not pattern then
     return false, "Pattern not specified (edit InitData and change or add variable 'pattern'!)"
   end
-  
+
   listenFor = data.listen or false
   if not listenFor then
     return false, "Listener not specified (edit InitData and change or add variable 'listen'!)"

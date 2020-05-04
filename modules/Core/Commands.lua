@@ -1,6 +1,6 @@
 --[[FATFILE
 1
-https://raw.githubusercontent.com/fatboychummy/Modu/master/modules/Core/Commands.lua
+https://raw.githubusercontent.com/Fatboychummy-CC/Modu/master/modules/Core/Commands.lua
 
 This module returns what commands are usable.
 ]]

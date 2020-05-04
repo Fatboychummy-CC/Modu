@@ -1,6 +1,6 @@
 --[[FATFILE
 1
-https://raw.githubusercontent.com/fatboychummy/Modu/master/modules/Optional/Execute.lua
+https://raw.githubusercontent.com/Fatboychummy-CC/Modu/master/modules/Optional/Execute.lua
 
 This module executes lua code directly.
 ]]
